@@ -4,7 +4,7 @@
 const signUp = async (req, res, next) => {
   
   try {
-    console.log("signUp working")
+
   } catch (err) {
     next(err)
   }
