@@ -4,6 +4,7 @@ const { Users } = require("../users/user.model");
 //Utils
 const { encrypt } = require("../../utils/handlePassword");
 const { handleHttpError } = require("../../utils/handleHttpError");
+const { Email } = require("../../services/email/email.service");
 
 
 
@@ -34,6 +35,9 @@ const signUp = async (req, res, next) => {
     newUser.password = undefined;
 
     // Email Welcome
+
+    new Email(email).sendWelcome(firstName);
+    
     res.status(201).json({
       status: "sucess",
       newUser
