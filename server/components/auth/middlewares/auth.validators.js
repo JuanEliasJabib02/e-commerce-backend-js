@@ -19,8 +19,21 @@ const signUpvalidator = [
   }
 ]
 
+const loginValidator = [
+
+  body("email").notEmpty().isEmail()
+    .withMessage("email  & cant be empty "),
+  body("password").notEmpty()
+    .withMessage("email & password cant be empty"),
+  
+  // Validate result
+  (req, res, next) => {
+    return validateResults(req,res,next)
+  }
+]
 
 
 
 
-module.exports = { signUpvalidator };
+
+module.exports = { signUpvalidator , loginValidator};
