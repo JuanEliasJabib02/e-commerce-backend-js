@@ -2,7 +2,7 @@ const { body } = require("express-validator");
 const { validateResults } = require("../../../utils/handleValidators");
 
 
-const addCategoryValidator = [
+const nameCategoryValidator = [
 
   body("name").notEmpty()
     .withMessage("name cant be empty"),
@@ -15,4 +15,4 @@ const addCategoryValidator = [
 
 
 
-module.exports = {addCategoryValidator};
+module.exports = {nameCategoryValidator};

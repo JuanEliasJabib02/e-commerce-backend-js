@@ -1,13 +1,14 @@
 const express = require("express");
 
-const { addCategory, getCategories } = require("./categories.controller");
+const { addCategory, getCategories, updateCategoryName } = require("./categories.controller");
 
 //Controllers
 
 //Middlewares
 const { checkToken } = require("../../middlewares/checkToken");
 const { onlyAdmin } = require("../../middlewares/onlyAdmin");
-const { addCategoryValidator } = require("./middlewares/category.validators");
+const { nameCategoryValidator } = require("./middlewares/category.validators");
+const { findCategory } = require("./middlewares/findCategory");
 
 const categoryRouter = express.Router();
 
@@ -21,10 +22,18 @@ categoryRouter.get("/", getCategories);
 categoryRouter.post("/",
   checkToken,
   onlyAdmin,
-  addCategoryValidator,
+  nameCategoryValidator,
   addCategory
 );
 // Update categorie ( OnlyAdmin )
+
+categoryRouter.put("/:id",
+  checkToken,
+  onlyAdmin,
+  nameCategoryValidator,
+  findCategory,
+  updateCategoryName
+);
 // Delete categorie ( OnlyAdmin)
 
 

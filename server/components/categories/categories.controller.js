@@ -57,6 +57,21 @@ const addCategory = async (req, res, next) => {
 const updateCategoryName = async (req, res, next) => {
   try {
     
+    const { name } = req.body;
+    const { category } = req;
+
+    console.log(category)
+
+    await category.update({
+      name
+    })
+
+    res.status(200).json({
+      status:"sucess"
+    })
+
+
+
   } catch (err) {
     
     next(err)
