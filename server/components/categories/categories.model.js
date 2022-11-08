@@ -17,7 +17,8 @@ const Categories = db.define("categories", {
     type: DataTypes.ENUM([
       "active",
       "deleted"
-    ])
+    ]),
+    defaultValue:"active"
   }
 });
 

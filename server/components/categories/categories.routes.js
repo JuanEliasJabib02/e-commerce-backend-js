@@ -7,6 +7,7 @@ const { addCategory } = require("./categories.controller");
 //Middlewares
 const { checkToken } = require("../../middlewares/checkToken");
 const { onlyAdmin } = require("../../middlewares/onlyAdmin");
+const { addCategoryValidator } = require("./middlewares/category.validators");
 
 const categoryRouter = express.Router();
 
@@ -14,7 +15,12 @@ const categoryRouter = express.Router();
 //Endpoints
 
 //getCategories
-categoryRouter.post("/add-category", checkToken, onlyAdmin ,addCategory);
+categoryRouter.post("/add-category",
+  checkToken,
+  onlyAdmin,
+  addCategoryValidator,
+  addCategory
+);
 // Update categorie ( OnlyAdmin )
 // Delete categorie ( OnlyAdmin)
 
