@@ -66,7 +66,7 @@ const updateCategoryName = async (req, res, next) => {
       name
     })
 
-    res.status(200).json({
+    res.status(204).json({
       status:"sucess"
     })
 
@@ -81,6 +81,17 @@ const updateCategoryName = async (req, res, next) => {
 
 const deleteCategory = async (req, res, next) => {
   try {
+
+    const { category } = req;
+
+    //Using soft delete
+    await category.update({
+      status:"deleted"
+    })
+    
+    res.status(204).json({
+      status:"succes"
+    })
     
   } catch (err) {
     

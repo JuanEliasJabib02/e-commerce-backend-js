@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { addCategory, getCategories, updateCategoryName } = require("./categories.controller");
+const { addCategory, getCategories, updateCategoryName, deleteCategory } = require("./categories.controller");
 
 //Controllers
 
@@ -35,6 +35,13 @@ categoryRouter.put("/:id",
   updateCategoryName
 );
 // Delete categorie ( OnlyAdmin)
+
+categoryRouter.delete("/:id",
+  checkToken,
+  onlyAdmin,
+  findCategory,
+  deleteCategory
+)
 
 
 
