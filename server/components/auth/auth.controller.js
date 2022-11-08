@@ -67,6 +67,7 @@ const login = async (req, res, next) => {
       }
     });
 
+
     if (!user) {
       return handleHttpError(res, "USER_AND_PASSWORD_FAIL", 400);
     }
@@ -83,8 +84,11 @@ const login = async (req, res, next) => {
       {expiresIn:"1d"}
     )
 
+    user.password = undefined;
+
     res.status(200).json({
-      token
+      token,
+      user
     })
  
   } catch (err) {

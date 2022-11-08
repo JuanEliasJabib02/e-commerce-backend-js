@@ -1,9 +1,11 @@
+const { Categories } = require("../components/categories/categories.model");
 const { Users } = require("../components/users/user.model");
 
 
 const Models = {
 
-  users: Users
+  users: Users,
+  categories: Categories
 }
 
 
