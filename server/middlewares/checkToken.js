@@ -32,6 +32,8 @@ const checkToken = async (req, res, next) => {
     
     req.userActive = userActive;
 
+    console.log(userActive)
+
     next();
   
   } catch (err) {
