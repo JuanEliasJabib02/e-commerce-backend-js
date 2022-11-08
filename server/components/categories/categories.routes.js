@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { addCategory } = require("./categories.controller");
+const { addCategory, getCategories } = require("./categories.controller");
 
 //Controllers
 
@@ -15,7 +15,10 @@ const categoryRouter = express.Router();
 //Endpoints
 
 //getCategories
-categoryRouter.post("/add-category",
+
+categoryRouter.get("/", getCategories);
+
+categoryRouter.post("/",
   checkToken,
   onlyAdmin,
   addCategoryValidator,

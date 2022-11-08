@@ -3,7 +3,17 @@ const { Categories } = require("./categories.model");
 
 const getCategories = async (req, res, next) => {
   try {
-    console.log("get categories")
+    
+    const categories = await Categories.findAll({
+      where: {
+        status: "active"
+      }
+    });
+    
+    res.status(200).json({
+      categories
+    })
+
   } catch (err) {
 
     next(err)
@@ -64,4 +74,4 @@ const deleteCategory = async (req, res, next) => {
 
 }
 
-module.exports = { addCategory, updateCategoryName, deleteCategory };
+module.exports = {getCategories, addCategory, updateCategoryName, deleteCategory };
