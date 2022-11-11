@@ -3,11 +3,13 @@ const { json } = require("express");
 const express = require("express");
 const cors = require("cors");
 const { router } = require("./routes");
+const swaggerUI = require("swagger-ui-express");
 //Init models
 const { Models } = require("./models");
 //Utils
 const { handleHttpError } = require("./utils/handleHttpError");
 const { globalErrorHandler } = require("./utils/globalErrorHandler");
+const { openApiConfig } = require("./docs/swagger");
 
 const app = express();
 
@@ -19,6 +21,12 @@ app.use(cors());
 
 app.use("/api/v1", router)
 
+//Document api
+
+app.use("/api/v1/doc",
+  swaggerUI.serve,
+  swaggerUI.setup(openApiConfig)
+)
 
  // Error endpoint not found 
 app.all('*', (req, res) => {
