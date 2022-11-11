@@ -1,4 +1,5 @@
 const swaggerJsDoc = require("swagger-jsdoc");
+const path = require("path");
 
 
 const swaggerDefinition = {
@@ -9,10 +10,17 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url:"http://localhost:4000/api/v1"
+      url: "http://localhost:4000/api/v1",
+      description: "Dev servers"
     }
   ],
   components: {
+    securitySchemes: {
+      JWT: {
+        type: "http",
+        scheme:"bearer"
+      }
+    },
     schemas: {
       authLogin: {
         type: "object",
@@ -43,7 +51,7 @@ const swaggerDefinition = {
             type:"string"
           }
         }
-      }
+      },
     }
   }
 };
@@ -51,9 +59,9 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: [
-    "./routes/*.js"
-  ]
+  apis:[
+    `${path.join(__dirname, "../components/auth/auth.routes.js")}`,
+] 
 };
 
 const openApiConfig = swaggerJsDoc(options);
