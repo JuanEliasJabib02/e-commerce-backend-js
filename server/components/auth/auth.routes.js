@@ -18,6 +18,12 @@ const authRouter = express.Router();
  *        tags:
  *            - auth
  *        summary: "register new user"
+ *        description: "This route is for sign-up a new user"
+ *        requestBody:
+ *            content:
+ *                application/json:
+ *                    schema:
+ *                        $ref: "#/components/schemas/authSignUp"
  * 
  */
 

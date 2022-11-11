@@ -61,6 +61,7 @@ const options = {
   swaggerDefinition,
   apis:[
     `${path.join(__dirname, "../components/auth/auth.routes.js")}`,
+    `${path.join(__dirname, "../components/categories/categories.routes.js")}`,
 ] 
 };
 

@@ -17,6 +17,16 @@ const categoryRouter = express.Router();
 
 //getCategories
 
+/**
+ * @openapi
+ * /categories:
+ *    get:
+ *        tags:
+ *            - categories
+ *        summary: "get categories"
+ * 
+ */
+
 categoryRouter.get("/", getCategories);
 
 categoryRouter.post("/",
