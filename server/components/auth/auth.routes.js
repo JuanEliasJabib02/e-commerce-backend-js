@@ -12,7 +12,9 @@ const authRouter = express.Router();
 authRouter.post("/sign-up", signUpvalidator, signUp);
 
 
-authRouter.post("/login", loginValidator,login);
+authRouter.post("/login", loginValidator, login);
+
+//MAYBE A LOGOUT
 
 module.exports = { authRouter };
 
