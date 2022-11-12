@@ -5,11 +5,18 @@ const { signUp, login } = require("./auth.controller");
 //Middlewares
 const { signUpvalidator, loginValidator } = require("./middlewares/auth.validators");
 
-
-
 const authRouter = express.Router();
 
 //Endpoints
+
+authRouter.post("/sign-up", signUpvalidator, signUp);
+authRouter.post("/login", loginValidator,login);
+
+module.exports = { authRouter };
+
+
+
+// Documentation
 
 /**
  * @openapi
@@ -24,11 +31,15 @@ const authRouter = express.Router();
  *                application/json:
  *                    schema:
  *                        $ref: "#/components/schemas/authSignUp"
+ *                    example:
+ *                        firstName: person
+ *                        lastName:  test
+ *                        email: test@gmail.com 
+ *                        password: 4321password
+ *        responses:
+ *                "201":
+ *                    description: User signup sucessfull
+ *                "400":
+ *                    description: User signup sucessfull
  * 
  */
-
-
-authRouter.post("/sign-up", signUpvalidator, signUp);
-authRouter.post("/login", loginValidator,login);
-
-module.exports = { authRouter };
