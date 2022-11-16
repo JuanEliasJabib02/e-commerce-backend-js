@@ -1,24 +1,24 @@
-const express = require("express");
+const express = require('express');
 //Controllers
-const { signUp, login } = require("./auth.controller");
+const { signUp, login } = require('./auth.controller');
 
 //Middlewares
-const { signUpvalidator, loginValidator } = require("./middlewares/auth.validators");
+const {
+	signUpvalidator,
+	loginValidator,
+} = require('./middlewares/auth.validators');
 
 const authRouter = express.Router();
 
 //Endpoints
 
-authRouter.post("/sign-up", signUpvalidator, signUp);
+authRouter.post('/sign-up', signUpvalidator, signUp);
 
-
-authRouter.post("/login", loginValidator, login);
+authRouter.post('/login', loginValidator, login);
 
 //MAYBE A LOGOUT
 
 module.exports = { authRouter };
-
-
 
 // Documentation
 
@@ -38,16 +38,15 @@ module.exports = { authRouter };
  *                    example:
  *                        firstName: person
  *                        lastName:  test
- *                        email: test@gmail.com 
+ *                        email: test@gmail.com
  *                        password: 4321password
  *        responses:
  *                "201":
  *                    description: User signup sucessfull
  *                "400":
  *                    description: register fail
- * 
+ *
  */
-
 
 /**
  * @openapi
@@ -63,7 +62,7 @@ module.exports = { authRouter };
  *                    schema:
  *                        $ref: "#/components/schemas/authLogin"
  *                    example:
- *                        email: test@gmail.com 
+ *                        email: test@gmail.com
  *                        password: 4321password
  *        responses:
  *                "200":

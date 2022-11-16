@@ -1,103 +1,89 @@
-const { handleHttpError } = require("../../utils/handleHttpError");
-const { Categories } = require("./categories.model");
+const { handleHttpError } = require('../../utils/handleHttpError');
+const { Categories } = require('./categories.model');
 
 const getCategories = async (req, res, next) => {
-  try {
-    
-    const categories = await Categories.findAll({
-      where: {
-        status: "active"
-      }
-    });
-    
-    res.status(200).json({
-      categories
-    })
+	try {
+		const categories = await Categories.findAll({
+			where: {
+				status: 'active',
+			},
+		});
 
-  } catch (err) {
-
-    next(err)
-  }
-
-}
+		res.status(200).json({
+			categories,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
 
 const addCategory = async (req, res, next) => {
-  try {
-    
-    const { name } = req.body;
+	try {
+		const { name } = req.body;
 
-    const category = await Categories.findOne({
-      where: {
-        name
-      }
-    })
+		const category = await Categories.findOne({
+			where: {
+				name,
+			},
+		});
 
-    if (category) {
-      handleHttpError(res, "CATEGORY_ALREADY_EXIST", 400);
-    }
+		if (category) {
+			handleHttpError(res, 'CATEGORY_ALREADY_EXIST', 400);
+		}
 
-    const newCategory = await Categories.create({
-      name,
-    })
-    
-    console.log(newCategory)
+		const newCategory = await Categories.create({
+			name,
+		});
 
-    res.status(201).json({
-      newCategory
-    })
+		console.log(newCategory);
 
-  } catch (err) {
-
-    next(err)
-  }
-
-}
-
+		res.status(201).json({
+			newCategory,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
 
 const updateCategoryName = async (req, res, next) => {
-  try {
-    
-    const { name } = req.body;
-    const { category } = req;
+	try {
+		const { name } = req.body;
+		const { category } = req;
 
-    console.log(category)
+		console.log(category);
 
-    await category.update({
-      name
-    })
+		await category.update({
+			name,
+		});
 
-    res.status(204).json({
-      status:"sucess"
-    })
-
-
-
-  } catch (err) {
-    
-    next(err)
-  }
-
-}
+		res.status(204).json({
+			status: 'sucess',
+		});
+	} catch (err) {
+		next(err);
+	}
+};
 
 const deleteCategory = async (req, res, next) => {
-  try {
+	try {
+		const { category } = req;
 
-    const { category } = req;
+		//Using soft delete
+		await category.update({
+			status: 'deleted',
+		});
 
-    //Using soft delete
-    await category.update({
-      status:"deleted"
-    })
-    
-    res.status(204).json({
-      status:"succes"
-    })
-    
-  } catch (err) {
-    
-    next(err)
-  }
+		res.status(204).json({
+			status: 'succes',
+		});
+	} catch (err) {
+		next(err);
+	}
+};
 
-}
-
-module.exports = {getCategories, addCategory, updateCategoryName, deleteCategory };
+module.exports = {
+	getCategories,
+	addCategory,
+	updateCategoryName,
+	deleteCategory,
+};
