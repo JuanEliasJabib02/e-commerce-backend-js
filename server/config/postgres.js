@@ -9,7 +9,10 @@ const db = new Sequelize({
 	username: process.env.POSTGRES_USERNAME,
 	password: process.env.POSTGRES_PASSWORD,
 	port: process.env.POSTGRES_PORT,
-	database: process.env.POSTGRES_DB,
+	database:
+		process.env.NODE_ENV === 'test'
+			? process.env.POSTGRES_DB_TEST
+			: process.env.POSTGRES_DB,
 	logging: false,
 	dialectOptions:
 		process.env.NODE_ENV === 'production'

@@ -1,17 +1,23 @@
+const { where } = require('sequelize');
 const request = require('supertest');
 const { app } = require('../../app');
+const { Users } = require('../users/user.model');
 
 const testAuthLogin = {
-	email: 'testtes@gmail.com',
-	password: '4321password',
+	email: 'testing@gmail.com',
+	password: '1234testing',
 };
 
 const testSignUp = {
 	firstName: 'testing',
 	lastName: 'testing',
-	email: 'testingemaill@gmail.com',
+	email: 'testing@gmail.com',
 	password: '1234testing',
 };
+
+beforeAll(async () => {
+	await Users.destroy({ truncate: true });
+});
 
 describe('[AUTH] This is the test of /api/v1/auth/login', () => {
 	test('This must be return a 404', async () => {
