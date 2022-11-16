@@ -10,7 +10,9 @@ const getCategories = async (req, res, next) => {
 		});
 
 		res.status(200).json({
-			categories,
+			data: {
+				categories,
+			},
 		});
 	} catch (err) {
 		next(err);
@@ -21,24 +23,24 @@ const addCategory = async (req, res, next) => {
 	try {
 		const { name } = req.body;
 
-		const category = await Categories.findOne({
+		const categoryExist = await Categories.findOne({
 			where: {
 				name,
 			},
 		});
 
-		if (category) {
+		if (categoryExist) {
 			handleHttpError(res, 'CATEGORY_ALREADY_EXIST', 400);
 		}
 
-		const newCategory = await Categories.create({
+		const category = await Categories.create({
 			name,
 		});
 
-		console.log(newCategory);
-
 		res.status(201).json({
-			newCategory,
+			data: {
+				category,
+			},
 		});
 	} catch (err) {
 		next(err);
