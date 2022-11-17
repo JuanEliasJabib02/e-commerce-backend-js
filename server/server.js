@@ -1,6 +1,7 @@
 const { app } = require('./app');
 const { postgresConnect } = require('./config/postgres');
 const dotenv = require('dotenv');
+const { initRelationships } = require('./models/relationships');
 
 dotenv.config({ path: './config.env' });
 
@@ -11,6 +12,8 @@ const startServer = () => {
 	app.listen(PORT, () => {
 		console.log('SERVER ON');
 	});
+
+	initRelationships();
 	//Connect DB
 	postgresConnect();
 };
