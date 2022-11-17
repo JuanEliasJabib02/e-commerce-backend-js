@@ -9,7 +9,7 @@ const globalErrorHandler = (err, req, res, next,) => {
     });
   }
   else {
-    console.log(err)
+  /*   console.log(err) */
     res.status(500).json({
       status: "fail",
       error: {

@@ -3,7 +3,11 @@
 const addProduct = async (req, res, next) => {
   
   try {
-    console.log("here in add product")
+    
+    const { name, details, categoryId, price } = req.body;
+
+    
+
   } catch (err) {
     next(err);
   }
