@@ -25,7 +25,7 @@ const Products = db.define('products', {
 		allowNull: false,
 	},
 	status: {
-		type: DataTypes.ENUM(['available', 'soldOut']),
+		type: DataTypes.ENUM(['available', 'soldOut', 'deleted']),
 		defaultValue: 'available',
 	},
 });
