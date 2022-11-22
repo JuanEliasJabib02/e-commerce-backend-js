@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const request = require('supertest');
 const { app } = require('../../app');
 const { Users } = require('../users/user.model');

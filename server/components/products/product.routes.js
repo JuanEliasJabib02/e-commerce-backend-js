@@ -1,7 +1,11 @@
 const express = require('express');
 
 //Controllers
-const { addProduct } = require('./products.controller');
+const {
+	addProduct,
+	getProducts,
+	getProductById,
+} = require('./products.controller');
 
 //Middlewares
 const { addProductValidator } = require('./middlewares/products.validators');
@@ -20,10 +24,18 @@ productsRouter.post(
 	addProduct
 );
 
-//add productColorSize(ONLY ADMIN)
+//add productColorSize(ONLY ADMIN) //productImgs
 
 //add productColor(ONLY ADMIN)
 
 //add productSize (Only ADMIN)
+
+productsRouter.get('/', getProducts);
+
+productsRouter.get('/:id', getProductById);
+
+//Update product
+
+//delete product
 
 module.exports = { productsRouter };

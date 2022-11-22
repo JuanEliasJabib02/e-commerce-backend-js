@@ -34,4 +34,51 @@ const addProduct = async (req, res, next) => {
 	}
 };
 
-module.exports = { addProduct };
+const getProducts = async (req, res, next) => {
+	try {
+		const products = await Products.findAll({
+			where: {
+				status: 'available',
+			},
+		});
+		//Include productSizeColor
+		res.status(200).json({
+			data: {
+				status: 'sucess',
+				products,
+			},
+		});
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const getProductById = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+
+		const product = await Products.findOne({
+			where: {
+				status: 'available',
+				id,
+			},
+		});
+
+		if (!product) {
+			handleHttpError(res, 'PRODUCT_NOT_FOUND', 404);
+		}
+
+		// product size color
+
+		res.status(200).json({
+			data: {
+				status: 'sucess',
+				product,
+			},
+		});
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+module.exports = { addProduct, getProducts, getProductById };
