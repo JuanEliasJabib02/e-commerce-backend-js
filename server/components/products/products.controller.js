@@ -1,5 +1,7 @@
 const { handleHttpError } = require('../../utils/handleHttpError');
+const { ProductColor } = require('./models/productColor.model');
 const { Products } = require('./models/products.model');
+const { ProductSize } = require('./models/productSize.model');
 
 const addProduct = async (req, res, next) => {
 	try {
@@ -34,6 +36,45 @@ const addProduct = async (req, res, next) => {
 	}
 };
 
+const addProductColor = async (req, res, next) => {
+	try {
+		const { color } = req.body;
+
+		const findColorExist = await ProductColor.findOne({
+			where: {
+				color,
+			},
+		});
+
+		if (findColorExist) {
+			return handleHttpError(res, 'COLOR_ALREADY_EXIST', 400);
+		}
+
+		const productColor = await ProductColor.create({
+			color,
+		});
+
+		res.status(201).json({
+			status: 'succes',
+			data: {
+				productColor,
+			},
+		});
+	} catch (error) {
+		next(err);
+	}
+};
+
+const addProductColorSize = async (req, res, next) => {
+	try {
+		const { productsId, productColorId, productSizeId } = req.body;
+
+		console.log(productsId, productColorId, productSizeId);
+	} catch (err) {
+		next(err);
+	}
+};
+
 const getProducts = async (req, res, next) => {
 	try {
 		const products = await Products.findAll({
@@ -49,7 +90,7 @@ const getProducts = async (req, res, next) => {
 			},
 		});
 	} catch (err) {
-		console.log(err);
+		next(error);
 	}
 };
 
@@ -77,8 +118,32 @@ const getProductById = async (req, res, next) => {
 			},
 		});
 	} catch (err) {
-		console.log(err);
+		next(err);
 	}
 };
 
-module.exports = { addProduct, getProducts, getProductById };
+const addProductSize = async (req, res, next) => {
+	try {
+		console.log('add Product Size');
+		const { size } = req.body;
+
+		const productSize = await ProductSize.create({
+			size,
+		});
+
+		res.status(201).json({
+			status: 'sucess',
+			productSize,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
+module.exports = {
+	addProduct,
+	addProductColor,
+	addProductSize,
+	addProductColorSize,
+	getProducts,
+	getProductById,
+};

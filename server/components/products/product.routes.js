@@ -5,12 +5,16 @@ const {
 	addProduct,
 	getProducts,
 	getProductById,
+	addProductSize,
+	addProductColorSize,
+	addProductColor,
 } = require('./products.controller');
 
 //Middlewares
 const { addProductValidator } = require('./middlewares/products.validators');
 const { checkToken } = require('../../middlewares/checkToken');
 const { onlyAdmin } = require('../../middlewares/onlyAdmin');
+const { ProductSize } = require('./models/productSize.model');
 
 //Router
 const productsRouter = express.Router();
@@ -24,11 +28,20 @@ productsRouter.post(
 	addProduct
 );
 
+productsRouter.post('/add-product-size', checkToken, onlyAdmin, addProductSize);
+
+productsRouter.post(
+	'/add-product-color',
+	checkToken,
+	onlyAdmin,
+	addProductColor
+);
+
 //add productColorSize(ONLY ADMIN) //productImgs
 
-//add productColor(ONLY ADMIN)
+productsRouter.post('/add-product-color-size', addProductColorSize);
 
-//add productSize (Only ADMIN)
+//add productColor(ONLY ADMIN)
 
 productsRouter.get('/', getProducts);
 
