@@ -40,8 +40,8 @@ const getProducts = async (req, res, next) => {
 			where: {
 				status: 'available',
 			},
+			//Include imgs
 		});
-		//Include productSizeColor
 		res.status(200).json({
 			data: {
 				status: 'sucess',

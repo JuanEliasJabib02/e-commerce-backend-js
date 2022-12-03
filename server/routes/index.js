@@ -11,4 +11,6 @@ router.use('/auth', authRouter);
 router.use('/categories', categoryRouter);
 router.use('/products', productsRouter);
 
+// Test upload
+
 module.exports = { router };
