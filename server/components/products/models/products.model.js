@@ -28,6 +28,10 @@ const Products = db.define('products', {
 		type: DataTypes.ENUM(['available', 'soldOut', 'deleted']),
 		defaultValue: 'available',
 	},
+	categoryId: {
+		type: DataTypes.INTEGER,
+		allowNull: null,
+	},
 });
 
 module.exports = { Products };

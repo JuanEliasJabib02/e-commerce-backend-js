@@ -9,10 +9,6 @@ const ProductImgs = db.define('productImgs', {
 		autoIncrement: true,
 		primaryKey: true,
 	},
-	productColorSizeId: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-	},
 	imgUrl: {
 		type: DataTypes.STRING,
 		allowNull: false,
@@ -20,6 +16,10 @@ const ProductImgs = db.define('productImgs', {
 	status: {
 		type: DataTypes.ENUM(['active', 'deleted']),
 		defaultValue: 'active',
+	},
+	productsId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
 	},
 });
 
