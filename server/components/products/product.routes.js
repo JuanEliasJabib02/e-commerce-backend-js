@@ -11,6 +11,7 @@ const {
 const { addProductValidator } = require('./middlewares/products.validators');
 const { checkToken } = require('../../middlewares/checkToken');
 const { onlyAdmin } = require('../../middlewares/onlyAdmin');
+const { uploadFile } = require('../../utils/handleStorage');
 
 //Router
 const productsRouter = express.Router();

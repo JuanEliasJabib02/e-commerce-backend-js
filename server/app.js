@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const { router } = require('./routes');
 const swaggerUI = require('swagger-ui-express');
+const helmet = require('helmet');
+const compression = require('compression');
 //Init models
 const { Models } = require('./models');
 //Utils
@@ -17,6 +19,8 @@ const app = express();
 //Api config
 app.use(json());
 app.use(cors());
+app.use(helmet());
+app.use(compression());
 
 // Main route
 

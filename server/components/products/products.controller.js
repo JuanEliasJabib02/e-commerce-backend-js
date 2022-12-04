@@ -23,6 +23,8 @@ const addProduct = async (req, res, next) => {
 			price,
 		});
 
+		//Upload imgs
+
 		res.status(201).json({
 			data: {
 				status: 'sucess',
