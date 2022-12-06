@@ -1,4 +1,5 @@
 const { handleHttpError } = require('../../utils/handleHttpError');
+const { ProductImgs } = require('./models/productImgs.model');
 const { Products } = require('./models/products.model');
 
 const addProduct = async (req, res, next) => {
@@ -25,7 +26,16 @@ const addProduct = async (req, res, next) => {
 
 		//Upload imgs
 
-		console.log(req.files);
+		const imgs = req.files;
+
+		if (imgs.length > 0) {
+			imgs.map(async img => {
+				return await ProductImgs.create({
+					imgUrl: img.location,
+					productsId: product.id,
+				});
+			});
+		}
 
 		res.status(201).json({
 			data: {
@@ -45,6 +55,12 @@ const getProducts = async (req, res, next) => {
 				status: 'available',
 			},
 			//Include imgs
+			include: [
+				{
+					model: ProductImgs,
+					attributes: ['imgUrl'],
+				},
+			],
 		});
 		res.status(200).json({
 			data: {
@@ -66,6 +82,12 @@ const getProductById = async (req, res, next) => {
 				status: 'available',
 				id,
 			},
+			include: [
+				{
+					model: ProductImgs,
+					attributes: ['imgUrl'],
+				},
+			],
 		});
 
 		if (!product) {
