@@ -29,6 +29,7 @@ productsRouter.post(
 	'/add-product',
 	checkToken,
 	onlyAdmin,
+	uploadFile.array('productImg'),
 	addProductValidator,
 	addProduct
 );

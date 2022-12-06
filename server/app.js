@@ -21,7 +21,7 @@ app.use(json());
 app.use(cors());
 app.use(helmet());
 app.use(compression());
-app.use(express.urlencoded({ extended: false })); //For  accept form-data
+app.use(express.urlencoded({ extended: false })); //For accept form-data
 
 // Main route
 
