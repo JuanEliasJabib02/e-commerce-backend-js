@@ -24,7 +24,9 @@ const addProduct = async (req, res, next) => {
 		});
 
 		//Upload imgs
+
 		console.log(req.files);
+
 		res.status(201).json({
 			data: {
 				status: 'sucess',
