@@ -105,6 +105,25 @@ const getProductById = async (req, res, next) => {
 	}
 };
 
+const updateProduct = async (req, res, next) => {
+	try {
+		const { product } = req;
+
+		const { name, details, price } = req.body;
+
+		await product.update({
+			name,
+			details,
+			price,
+		});
+
+		res.status(204).json({
+			status: 'succes',
+		});
+	} catch (err) {
+		next(err);
+	}
+};
 const deleteProduct = async (req, res, next) => {
 	//Soft delete
 	try {
@@ -128,5 +147,6 @@ module.exports = {
 	addProduct,
 	getProducts,
 	getProductById,
+	updateProduct,
 	deleteProduct,
 };

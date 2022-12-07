@@ -6,6 +6,7 @@ const {
 	getProducts,
 	getProductById,
 	deleteProduct,
+	updateProduct,
 } = require('./products.controller');
 
 //Middlewares
@@ -36,11 +37,9 @@ productsRouter.post(
 	addProduct
 );
 
-//add productColor(ONLY ADMIN)
-
 //Update products
 
-//delete products
+productsRouter.put('/:id', checkToken, onlyAdmin, findProduct, updateProduct);
 
 productsRouter.delete(
 	'/:id',
