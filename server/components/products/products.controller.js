@@ -94,8 +94,6 @@ const getProductById = async (req, res, next) => {
 			handleHttpError(res, 'PRODUCT_NOT_FOUND', 404);
 		}
 
-		// product size color
-
 		res.status(200).json({
 			data: {
 				status: 'sucess',
@@ -107,8 +105,28 @@ const getProductById = async (req, res, next) => {
 	}
 };
 
+const deleteProduct = async (req, res, next) => {
+	//Soft delete
+	try {
+		const { product } = req;
+
+		console.log(product);
+
+		await product.update({
+			status: 'deleted',
+		});
+
+		res.status(204).json({
+			status: 'succes',
+		});
+	} catch (error) {
+		next(err);
+	}
+};
+
 module.exports = {
 	addProduct,
 	getProducts,
 	getProductById,
+	deleteProduct,
 };

@@ -5,6 +5,7 @@ const {
 	addProduct,
 	getProducts,
 	getProductById,
+	deleteProduct,
 } = require('./products.controller');
 
 //Middlewares
@@ -12,6 +13,7 @@ const { addProductValidator } = require('./middlewares/products.validators');
 const { checkToken } = require('../../middlewares/checkToken');
 const { onlyAdmin } = require('../../middlewares/onlyAdmin');
 const { uploadFile } = require('../../utils/handleStorage');
+const { findProduct } = require('./middlewares/product.middleware');
 
 //Router
 const productsRouter = express.Router();
@@ -39,5 +41,13 @@ productsRouter.post(
 //Update products
 
 //delete products
+
+productsRouter.delete(
+	'/:id',
+	checkToken,
+	onlyAdmin,
+	findProduct,
+	deleteProduct
+);
 
 module.exports = { productsRouter };
