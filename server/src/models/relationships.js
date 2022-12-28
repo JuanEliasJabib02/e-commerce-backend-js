@@ -1,6 +1,6 @@
 
 const initRelationships = () => {
 
-};
+}
 
-module.exports = { initRelationships };
+module.exports = { initRelationships }

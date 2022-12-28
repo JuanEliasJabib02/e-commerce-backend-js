@@ -1,24 +1,23 @@
-const express = require('express');
-//Controllers
-const { signUp, login } = require('./auth.controller');
+const express = require('express')
+// Controllers
+const { signUp, login } = require('./auth.controller')
+const { isUserAlreadyRegister } = require('./middlewares/isUserAlreadyRegister')
 
-//Middlewares
-const {
-	signUpvalidator,
-	loginValidator,
-} = require('./middlewares/auth.validators');
 
-const authRouter = express.Router();
+// Middlewares
 
-//Endpoints
+const authRouter = express.Router()
 
-authRouter.post('/sign-up',signUp);
+// Endpoints
 
-authRouter.post('/login', login);
+authRouter.post('/sign-up',
+  isUserAlreadyRegister,
+  signUp
+)
 
-//MAYBE A LOGOUT
+authRouter.post('/login', login)
 
-module.exports = { authRouter };
+module.exports = { authRouter }
 
 // Documentation
 

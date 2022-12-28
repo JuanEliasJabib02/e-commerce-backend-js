@@ -1,45 +1,45 @@
-const { DataTypes } = require("sequelize");
-const { db } = require("../../../config/postgres");
+const { DataTypes } = require('sequelize')
+const { db } = require('../../../config/postgres')
 
-const User = db.define("users", {
+const User = db.define('users', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    unique:true,
+    unique: true
   },
   firstName: {
     type: DataTypes.STRING(16),
-    allowNull:false
+    allowNull: false
   },
   lastName: {
     type: DataTypes.STRING(16),
-    allowNull: false,
+    allowNull: false
   },
   email: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique:true
+    unique: true
 
   },
   password: {
     type: DataTypes.STRING(100),
-    allowNull:false
+    allowNull: false
   },
   role: {
     type: DataTypes.ENUM([
-      "client",
-      "admin"
+      'client',
+      'admin'
     ]),
-    defaultValue:"client",
+    defaultValue: 'client'
   },
   status: {
     type: DataTypes.ENUM([
-      "active",
-      "disable"
+      'active',
+      'disable'
     ]),
-    defaultValue:"active"
+    defaultValue: 'active'
   }
-});
+})
 
-module.exports = { User };
+module.exports = { User }

@@ -1,56 +1,14 @@
-//NPM
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config({ path: './config.env' });
-//Models
-const { User } = require('../users/user.model');
-//Utils
-const { encrypt, compare } = require('../../utils/handlePassword');
-const { handleHttpError } = require('../../utils/handleHttpError');
-const { Email } = require('../../services/email/email.service');
+
+const userService = require('./auth.service');
 
 const signUp = async (req, res, next) => {
-
 	try {
-		const { firstName, lastName, email, password } = req.body;
 
-		const userExist = await User.findOne({
-			where: {
-				email,
-			},
-		});
-
-		if (userExist) {
-			return handleHttpError(res, 'EMAIL_ALREADY_EXIST', 400);
-		}
-
-		const hashPassword = await encrypt(password);
-
-		const user = await User.create({
-			firstName,
-			lastName,
-			email,
-			password: hashPassword,
-		});
-
-		//Refact later
-		const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
-			expiresIn: '1d',
-		});
-
-		user.password = undefined;
-
-		// Email Welcome
-
-		new Email(email).sendWelcome(firstName);
-
-		res.status(201).json({
-			data: {
-				status: 'sucess',
-				token,
-				user,
-			},
-		});
+		const data = req.body;
+		const response = await userService.signUp(data)
+		
+		res.status(201).json(response)
+		
 	} catch (err) {
 		next(err);
 	}
@@ -58,37 +16,8 @@ const signUp = async (req, res, next) => {
 
 const login = async (req, res, next) => {
 	try {
-		const { email, password } = req.body;
+		const response = loginUser()
 
-		const user = await Users.findOne({
-			where: {
-				email,
-				status: 'active',
-			},
-		});
-
-		if (!user) {
-			return handleHttpError(res, 'USER_AND_PASSWORD_FAIL', 404);
-		}
-
-		const passOkay = await compare(password, user.password);
-
-		if (!passOkay) {
-			return handleHttpError(res, 'USER_AND_PASSWORD_FAIL', 404);
-		}
-
-		const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
-			expiresIn: '1d',
-		});
-
-		user.password = undefined;
-
-		res.status(200).json({
-			data: {
-				token,
-				user,
-			},
-		});
 	} catch (err) {
 		next(err);
 	}
