@@ -12,9 +12,9 @@ const authRouter = express.Router();
 
 //Endpoints
 
-authRouter.post('/sign-up', signUpvalidator, signUp);
+authRouter.post('/sign-up',signUp);
 
-authRouter.post('/login', loginValidator, login);
+authRouter.post('/login', login);
 
 //MAYBE A LOGOUT
 

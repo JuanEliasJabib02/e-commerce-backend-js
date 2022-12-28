@@ -3,13 +3,14 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 //Models
-const { Users } = require('../users/user.entity');
+const { User } = require('../users/user.model');
 //Utils
 const { encrypt, compare } = require('../../utils/handlePassword');
 const { handleHttpError } = require('../../utils/handleHttpError');
 const { Email } = require('../../services/email/email.service');
 
 const signUp = async (req, res, next) => {
+
 	try {
 		const { firstName, lastName, email, password } = req.body;
 
@@ -25,7 +26,7 @@ const signUp = async (req, res, next) => {
 
 		const hashPassword = await encrypt(password);
 
-		const user = await Users.create({
+		const user = await User.create({
 			firstName,
 			lastName,
 			email,
