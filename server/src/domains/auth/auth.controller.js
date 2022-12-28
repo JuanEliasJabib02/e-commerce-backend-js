@@ -14,7 +14,7 @@ const signUp = async (req, res, next) => {
 	try {
 		const { firstName, lastName, email, password } = req.body;
 
-		const userExist = await Users.findOne({
+		const userExist = await User.findOne({
 			where: {
 				email,
 			},
