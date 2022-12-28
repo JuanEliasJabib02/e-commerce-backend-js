@@ -4,18 +4,15 @@ const {
 	categoryRouter,
 } = require('../components/categories/categories.routes');
 const { productsRouter } = require('../components/products/product.routes');
-const { uploadFile } = require('../utils/handleStorage');
+const {
+	shoppingCartRouter,
+} = require('../components/shopping-cart/cart.routes');
 
 const router = express.Router();
 //Routes
 router.use('/auth', authRouter);
 router.use('/categories', categoryRouter);
 router.use('/products', productsRouter);
+router.use('/shopping-cart', shoppingCartRouter);
 
-// Test upload
-/* 
-router.post('/testUpload', uploadFile.single('myfile'), (req, res, next) => {
-	console.log('me ejecute');
-});
- */
 module.exports = { router };

@@ -3,7 +3,9 @@ const { ProductImgs } = require('./models/productImgs.model');
 const { Products } = require('./models/products.model');
 
 const addProduct = async (req, res, next) => {
+
 	try {
+		
 		const { name, details, categoryId, price } = req.body;
 
 		const productExist = await Products.findOne({
@@ -23,6 +25,8 @@ const addProduct = async (req, res, next) => {
 			categoryId,
 			price,
 		});
+
+
 
 		//Upload imgs
 
