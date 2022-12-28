@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 //Models
-const { Users } = require('../users/user.model');
+const { Users } = require('../users/user.entity');
 //Utils
 const { encrypt, compare } = require('../../utils/handlePassword');
 const { handleHttpError } = require('../../utils/handleHttpError');

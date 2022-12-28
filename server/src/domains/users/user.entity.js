@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
-const { db } = require("../../config/postgres");
+const { db } = require("../../../config/postgres");
+
 
 
 const Users = db.define("users", {

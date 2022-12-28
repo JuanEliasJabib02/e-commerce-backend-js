@@ -1,7 +1,8 @@
-const { app } = require('./app');
+
 const { postgresConnect } = require('./config/postgres');
+const {app} = require("./src/app")
 const dotenv = require('dotenv');
-const { initRelationships } = require('./models/relationships');
+const { initRelationships } = require('./src/schemas/relationships');
 
 dotenv.config({ path: './config.env' });
 

@@ -7,11 +7,11 @@ const swaggerUI = require('swagger-ui-express');
 const helmet = require('helmet');
 const compression = require('compression');
 //Init models
-const { Models } = require('./models');
+const { Schemas } = require('./schemas');
 //Utils
 const { handleHttpError } = require('./utils/handleHttpError');
 const { globalErrorHandler } = require('./utils/globalErrorHandler');
-const { openApiConfig } = require('./docs/swagger');
+const { openApiConfig } = require('./domains/docs/swagger');
 
 //Init app
 const app = express();
