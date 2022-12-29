@@ -56,7 +56,7 @@ const getCategoryById = async (id) => {
 
 const updateCategory = async (id, data) => {
   
-  const { name } = data
+    const { name } = data
 
     //REFACT IN A MIDDLEWARE LATER
     const category = await Category.findOne({
@@ -78,4 +78,34 @@ const updateCategory = async (id, data) => {
   
 }
 
-module.exports = {createCategory, getAllCategories, getCategoryById,updateCategory}
+const deleteCategory = async (id) => {
+
+
+
+   //REFACT IN A MIDDLEWARE LATER
+    const category = await Category.findOne({
+    where: {
+      status: "active",
+      id
+    }
+    })
+
+  if (!category) {
+    return "CATEGORY_DONT_EXIST"
+  }
+
+  await category.update({
+    status:"deleted"
+  })
+
+  return
+
+}
+
+module.exports = {
+  createCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+  deleteCategory
+}

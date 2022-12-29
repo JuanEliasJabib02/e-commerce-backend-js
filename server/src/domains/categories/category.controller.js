@@ -73,9 +73,28 @@ const updateCategory = async (req, res, next) => {
       return
     }
 
-    res.status(StatusCodes.OK).json(response)
+    res.status(StatusCodes.NO_CONTENT).json(response)
     
     
+    
+  } catch (error) {
+    next(error)
+  }
+}
+
+const deleteCategory = async (req, res, next) => {
+  try {
+    const { id } = req.params
+
+    const response = await categoryServices.deleteCategory(id)
+    if (response === "CATEGORY_DONT_EXIST") {
+      res.status(StatusCodes.NOT_FOUND)
+        .json({ error: response })
+      return
+    }
+
+    res.status(StatusCodes.NO_CONTENT).json(response)
+
     
   } catch (error) {
     next(error)
@@ -86,5 +105,6 @@ module.exports = {
   createCategory,
   getAllCategories,
   getCategoryById,
-  updateCategory
+  updateCategory,
+  deleteCategory
 }
