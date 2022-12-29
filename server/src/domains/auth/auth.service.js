@@ -22,7 +22,8 @@ const signUp = async (data) => {
     firstName,
     lastName,
     email,
-    password: hashPassword
+    password: hashPassword,
+  
   })
 
   user.password = undefined

@@ -9,11 +9,34 @@ const createCategory = async (req, res, next) => {
     
     const response = await categoryServices.createCategory(data)
 
+    if (response === "CATEGORY_ALREADY_EXIST") {
+      res.status(StatusCodes.BAD_REQUEST)
+        .json({error:response})
+      return
+    }
+
+    res.status(StatusCodes.CREATED)
+      .json(response)
+
   
-  } catch (err) { 
-    next(err)
+  } catch (error) { 
+    next(error)
+  }
+}
+
+const getAllCategories = async (req, res, next) => {
+  try { 
+    
+    const response = await categoryServices.getAllCategories()
+
+
+
+    res.status(StatusCodes.OK).json(response)
+    
+  } catch (error) {
+    next(error)
   }
 }
 
 
-module.exports = {createCategory}
+module.exports = {createCategory,getAllCategories}

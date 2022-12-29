@@ -1,8 +1,8 @@
 const express = require("express")
-const { createCategory } = require("./category.controller")
+const { createCategory, getAllCategories } = require("./category.controller")
 const { validateCategory } = require("./middlewares/category.validator")
 const { checkToken } = require("../../middlewares/checkToken")
-
+const { onlyAdmin } = require("../../middlewares/onlyAdmin")
 
 //Controllers
 
@@ -18,12 +18,14 @@ const categoryRouter = express.Router()
 
 categoryRouter.post("/",
   checkToken,
+  onlyAdmin,
   validateCategory,
   createCategory
 )
 
 //Get categories
 
+categoryRouter.get("/", getAllCategories)
 // Get categories by id
 
 // Update categories (ONLYADMIN)

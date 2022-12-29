@@ -16,7 +16,9 @@ const userSchema = Joi.object({
   password: Joi.string()
     .min(3)
     .max(50)
-    .required()
+    .required(),
+  role: Joi.string()
+    .optional()
   
 })
 
