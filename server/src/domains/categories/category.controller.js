@@ -38,5 +38,26 @@ const getAllCategories = async (req, res, next) => {
   }
 }
 
+const getCategoryById = async (req, res, next) => {
+  try {
 
-module.exports = {createCategory,getAllCategories}
+    const { id } = req.params
+
+    
+    const response = await categoryServices.getCategoryById(id)
+
+    if (response === "CATEGORY_DONT_EXIST") {
+      res.status(StatusCodes.NOT_FOUND)
+        .json({error:response})
+      return
+    }
+
+    res.status(StatusCodes.OK).json(response)
+
+  } catch (error) {
+    next(error)
+    
+  }
+}
+
+module.exports = {createCategory,getAllCategories,getCategoryById}

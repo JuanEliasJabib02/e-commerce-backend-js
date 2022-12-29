@@ -36,5 +36,21 @@ const getAllCategories = async () => {
   return categories
 }
 
+const getCategoryById = async (id) => {
 
-module.exports = {createCategory, getAllCategories}
+  const category = await Category.findOne({
+    where: {
+      status: "active",
+      id
+    }
+  })
+
+  if (!category) {
+    return "CATEGORY_DONT_EXIST"
+  }
+
+  return category
+  
+}
+
+module.exports = {createCategory, getAllCategories, getCategoryById}
