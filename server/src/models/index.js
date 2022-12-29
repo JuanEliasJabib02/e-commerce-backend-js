@@ -1,8 +1,10 @@
 
-const { Users } = require('../domains/users/user.model')
+const { Category } = require('../domains/categories/category.model')
+const { User } = require('../domains/users/user.model')
 
 const Models = {
-  users: Users
+  User: User,
+  Category: Category,
 }
 
 module.exports = { Models }

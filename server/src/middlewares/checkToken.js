@@ -1,20 +1,23 @@
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
-const { Users } = require('../domains/users/user.entity')
+const {User} = require("../domains/users/user.model")
+
 dotenv.config({ path: './config.env' })
-const { handleHttpError } = require('../utils/handleHttpError')
+const { StatusCodes } = require('http-status-codes')
 
 const checkToken = async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
-      handleHttpError(res, 'NOT_TOKEN', 401)
+      res.status(StatusCodes.UNAUTHORIZED)
+        .json({ error: "TOKEN_NOT_VALID" })
+      return
     }
 
     const token = req.headers.authorization.split(' ').pop()
 
-    const decoded = await jwt.verify(token, process.env.JWT_SIGN)
+    const decoded = jwt.verify(token, process.env.JWT_SIGN)
 
-    const userActive = await Users.findOne({
+    const userActive = await User.findOne({
       where: {
         id: decoded.id,
         status: 'active'
@@ -22,14 +25,28 @@ const checkToken = async (req, res, next) => {
     })
 
     if (!userActive) {
-      handleHttpError(res, 'USER_NOT_EXIST', 403)
+      res.status(StatusCodes.NOT_FOUND)
+        .json({error:"USER_NOT_FOUND"})
+     
     }
 
     req.userActive = userActive
 
     next()
   } catch (err) {
+    if (err.message === "jwt expired") {
+      res.status(StatusCodes.FORBIDDEN)
+        .json({ error: "TOKEN EXPIRED" })
+      return
+    }
+    if (err.message === "jwt malformed") {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "TOKEN IS WRONG" })
+      return
+    }
+
     next(err)
+    
   }
 }
 
