@@ -1,4 +1,4 @@
-const { handleHttpError } = require('../utils/handleHttpError')
+const { StatusCodes } = require('http-status-codes')
 
 const onlyAdmin = async (req, res, next) => {
   try {
@@ -7,7 +7,8 @@ const onlyAdmin = async (req, res, next) => {
     const role = userActive.role
 
     if (role !== 'admin') {
-      handleHttpError(res, 'NOT_AUTHORIZATION', 403)
+      res.status(StatusCodes.FORBIDDEN)
+        .json({ error: "YOUR_DONT_HAVE_ACCESS" })
     }
 
     next()
