@@ -1,26 +1,37 @@
 
-const userService = require('./auth.service');
+const userService = require('./auth.service')
+const {  StatusCodes } = require("http-status-codes")
 
 const signUp = async (req, res, next) => {
-	try {
+  try {
+    const data = req.body
+    const response = await userService.signUp(data)
 
-		const data = req.body;
-		const response = await userService.signUp(data)
-		
-		res.status(201).json(response)
-		
-	} catch (err) {
-		next(err);
-	}
-};
+    if (response === 'USER_ALREADY_EXIST') {
+    	res.status(StatusCodes.BAD_REQUEST).json({ error: response })
+		} else {
+			res.status(StatusCodes.CREATED).json(response)
+		}
+    
+  } catch (err) {
+    next(err)
+  }
+}
 
 const login = async (req, res, next) => {
 	try {
-		const response = loginUser()
+		const data = req.body
+		const response = await userService.login(data)
 
-	} catch (err) {
-		next(err);
-	}
-};
+		if (response === "USER_AND_PASSWORD_FAIL") {
+			res.status(StatusCodes.UNAUTHORIZED).json({error:response})
+		} else {
+			res.status(StatusCodes.OK).json(response)
+		}
+		
+  } catch (err) {
+    next(err)
+  }
+}
 
-module.exports = { signUp, login };
+module.exports = { signUp, login }

@@ -1,65 +1,65 @@
-const { User } = require('../users/user.model');
+const { User } = require('../users/user.model')
 const { encrypt, compare } = require('../../utils/handlePassword')
-const { Email } = require('../../services/email/email.service');
-const { handleHttpError } = require('../../utils/handleHttpError');
-const jwt = require('jsonwebtoken');
+const { Email } = require('../../services/email/email.service')
+const jwt = require('jsonwebtoken')
 
 const signUp = async (data) => {
+  const { firstName, lastName, email, password } = data
 
-  	const { firstName, lastName, email, password } = data;
+  const userExist = await User.findOne({
+    where: {
+      email
+    }
+  })
 
-		const hashPassword = await encrypt(password);
+  if (userExist) {
+    return 'USER_ALREADY_EXIST'
+  }
 
-		const user = await User.create({
-			firstName,
-			lastName,
-			email,
-			password: hashPassword,
-		});
+  const hashPassword = await encrypt(password)
 
-		user.password = undefined;
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password: hashPassword
+  })
 
-		new Email(email).sendWelcome(firstName);
-    
-    return user
+  user.password = undefined
 
+  new Email(email).sendWelcome(firstName)
+
+  return {user}
 }
 
-const loginUser = async (req) => {
+const login = async (data) => {
 
-  const { email, password } = req.body;
+	
+  const { email, password } = data
 
-		const user = await User.findOne({
-			where: {
-				email,
-				status: 'active',
-			},
-		});
+  const user = await User.findOne({
+    where: {
+      email,
+      status: 'active'
+    }
+  })
 
-		if (!user) {
-			return handleHttpError(res, 'USER_AND_PASSWORD_FAIL', 404);
-		}
+  if (!user) {
+    return "USER_AND_PASSWORD_FAIL"
+  }
 
-		const passOkay = await compare(password, user.password);
+  const passOkay = await compare(password, user.password)
 
-		if (!passOkay) {
-			return handleHttpError(res, 'USER_AND_PASSWORD_FAIL', 404);
-		}
+  if (!passOkay) {
+    return "USER_AND_PASSWORD_FAIL"
+  }
 
-		const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
-			expiresIn: '1d',
-		});
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
+    expiresIn: '1d'
+  })
 
-		user.password = undefined;
 
-		res.status(200).json({
-			data: {
-				token,
-				user,
-			},
-		});
+  return {token}
 }
 
-
-
-module.exports = { signUp,loginUser }
+module.exports = { signUp, login }

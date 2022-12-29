@@ -1,8 +1,6 @@
 const express = require('express')
 // Controllers
 const { signUp, login } = require('./auth.controller')
-const { isUserAlreadyRegister } = require('./middlewares/isUserAlreadyRegister')
-
 
 // Middlewares
 
@@ -11,7 +9,6 @@ const authRouter = express.Router()
 // Endpoints
 
 authRouter.post('/sign-up',
-  isUserAlreadyRegister,
   signUp
 )
 

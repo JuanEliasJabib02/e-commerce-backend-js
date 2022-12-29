@@ -9,7 +9,6 @@ const compression = require('compression')
 // Init models
 const { Models } = require('./Models')
 // Utils
-const { handleHttpError } = require('./utils/handleHttpError')
 const { globalErrorHandler } = require('./utils/globalErrorHandler')
 const { openApiConfig } = require('./domains/docs/swagger')
 
