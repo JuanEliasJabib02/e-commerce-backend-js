@@ -1,5 +1,5 @@
 const express = require("express")
-const { createCategory, getAllCategories } = require("./category.controller")
+const { createCategory, getAllCategories, updateCategory } = require("./category.controller")
 const { validateCategory } = require("./middlewares/category.validator")
 const { checkToken } = require("../../middlewares/checkToken")
 const { onlyAdmin } = require("../../middlewares/onlyAdmin")
@@ -27,6 +27,12 @@ categoryRouter.get("/:id", getCategoryById)
 
 // Update categories (ONLYADMIN)
 
+categoryRouter.patch("/:id",
+  checkToken,
+  onlyAdmin,
+  validateCategory,
+  updateCategory
+)
 // Delete category (ONLYADMIN)
 
 module.exports = {categoryRouter}

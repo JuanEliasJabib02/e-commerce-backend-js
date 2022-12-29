@@ -60,4 +60,31 @@ const getCategoryById = async (req, res, next) => {
   }
 }
 
-module.exports = {createCategory,getAllCategories,getCategoryById}
+const updateCategory = async (req, res, next) => {
+  try {
+
+    const data = req.body;
+    const { id } = req.params;
+    const response = await categoryServices.updateCategory(id,data)
+
+    if (response === "CATEGORY_DONT_EXIST") {
+      res.status(StatusCodes.NOT_FOUND)
+        .json({error:response})
+      return
+    }
+
+    res.status(StatusCodes.OK).json(response)
+    
+    
+    
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = {
+  createCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory
+}
