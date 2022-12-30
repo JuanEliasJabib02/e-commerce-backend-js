@@ -27,7 +27,7 @@ const checkToken = async (req, res, next) => {
     if (!userActive) {
       res.status(StatusCodes.NOT_FOUND)
         .json({error:"USER_NOT_FOUND"})
-     
+      return
     }
 
     req.userActive = userActive

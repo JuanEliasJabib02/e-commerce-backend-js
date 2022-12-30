@@ -9,9 +9,12 @@ const onlyAdmin = async (req, res, next) => {
     if (role !== 'admin') {
       res.status(StatusCodes.FORBIDDEN)
         .json({ error: "YOUR_DONT_HAVE_ACCESS" })
+      return
+    } else {
+       next()
     }
 
-    next()
+   
   } catch (err) {
     next(err)
   }

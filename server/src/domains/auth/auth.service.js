@@ -4,7 +4,7 @@ const { Email } = require('../../services/email/email.service')
 const jwt = require('jsonwebtoken')
 
 const signUp = async (data) => {
-  const { firstName, lastName, email, password } = data
+  const { firstName, lastName, email, password} = data
 
   const userExist = await User.findOne({
     where: {
@@ -23,7 +23,6 @@ const signUp = async (data) => {
     lastName,
     email,
     password: hashPassword,
-  
   })
 
   user.password = undefined

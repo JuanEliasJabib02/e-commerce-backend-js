@@ -8,7 +8,9 @@ const createCategory = async (data) => {
   	const categoryExist = await Category.findOne({
 			where: {
 				name,
-			},
+        
+      },
+      /* INCLUDE PRODUCTS */
 		});
 
 		if (categoryExist) {
@@ -44,6 +46,7 @@ const getCategoryById = async (id) => {
       status: "active",
       id
     }
+     /* INCLUDE PRODUCTS */
   })
 
   if (!category) {

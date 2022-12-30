@@ -8,11 +8,12 @@ const signUp = async (req, res, next) => {
     const response = await userService.signUp(data)
 
     if (response === 'USER_ALREADY_EXIST') {
-    	res.status(StatusCodes.BAD_REQUEST).json({ error: response })
-		} else {
-			res.status(StatusCodes.CREATED).json(response)
-		}
-    
+			res.status(StatusCodes.BAD_REQUEST).json({ error: response })
+			return
+		} 
+
+		res.status(StatusCodes.CREATED).json(response)
+			
   } catch (err) {
     next(err)
   }
