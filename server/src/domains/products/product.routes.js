@@ -6,7 +6,7 @@ const { createProduct } = require("./product.controller")
 // Middlewares
 const { checkToken } = require("../../middlewares/checkToken")
 const { onlyAdmin } = require("../../middlewares/onlyAdmin")
-const { uploadFile } =require("../../utils/handleStorage")
+const { uploadFile, multerLimitSizeErrorHandler } = require("../../utils/uploadFile")
 
 
 
@@ -21,8 +21,14 @@ const productRouter = express.Router()
 productRouter.post("/",
   checkToken,
   onlyAdmin,
+  uploadFile.array("productImg",4),
   createProduct
 )
+
+productRouter.post("/test", uploadFile.array("productImg") ,multerLimitSizeErrorHandler,(req, res) => {
+  res.send({a:1})
+  
+})
 
 
 //get all products
