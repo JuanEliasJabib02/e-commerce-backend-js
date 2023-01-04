@@ -16,7 +16,7 @@ const cloudinaryConfig =cloudinary.config({
 
 const uploadToCloudinary = async (img) => {
   
-
+  console.log("working on this upload to cloudinary storage service")
   return img.path
 }
 

@@ -28,7 +28,7 @@ const createProduct = async (data, imgs) => {
 
   if (imgs.length > 0) {
     imgs.map(async img => {
-      const imgUrl =  await uploadToCloudinary(img)
+      const imgUrl = await uploadToCloudinary(img)
       
     })
   }
