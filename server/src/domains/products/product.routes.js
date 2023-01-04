@@ -1,5 +1,5 @@
 const express = require("express")
-const { createProduct } = require("./product.controller")
+const { createProduct, getAllProducts } = require("./product.controller")
 
 // Controllers
 
@@ -29,6 +29,8 @@ productRouter.post("/",
 
 
 //get all products
+
+productRouter.get("/", getAllProducts)
 
 //Get product by Id
 

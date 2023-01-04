@@ -23,6 +23,15 @@ const createProduct = async (req, res, next) => {
   }
 }
 
+const getAllProducts = async (req, res, next) => {
+  try { 
+    
+    const response = await productServices.getAllProducts()
+    
+    res.status(StatusCodes.ACCEPTED).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
 
-
-module.exports = { createProduct }
+module.exports = { createProduct,getAllProducts }

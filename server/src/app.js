@@ -12,6 +12,7 @@ const {Models} = require("./models/index")
 const { globalErrorHandler } = require('./utils/globalErrorHandler')
 const { openApiConfig } = require('./domains/docs/swagger')
 const { StatusCodes } = require('http-status-codes')
+const { AppError } = require('./utils/appError')
 
 // Init app
 const app = express()
@@ -32,10 +33,16 @@ app.use('/api/v1', router)
 app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(openApiConfig))
 
 // Error endpoint not found
-app.all('*', (req, res) => {
-  res.status(StatusCodes.NOT_FOUND)
-    .json({error:`${req.method} ${req.url} not found in this server`})
+app.all('*', (req, res, next) => {
+  return next(new AppError(
+    `${req.method} ${req.url} not found in this server`,
+    StatusCodes.NOT_FOUND,
+    true
+  ))
+
 })
+
+/*  */
 
 // Global error Handler
 app.use('*', globalErrorHandler)

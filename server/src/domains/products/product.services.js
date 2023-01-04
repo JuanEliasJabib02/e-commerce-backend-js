@@ -38,4 +38,18 @@ const createProduct = async (data, imgs) => {
 }
 
 
-module.exports = { createProduct }
+const getAllProducts = async () => {
+
+  const products = await Product.findAll({
+    where: {
+      status: "available"
+    },
+    /* INCLUDE IMGS PRODUCT */
+  })
+
+
+  return products
+
+}
+
+module.exports = { createProduct, getAllProducts }
