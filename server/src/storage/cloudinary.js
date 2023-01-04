@@ -1,23 +1,51 @@
 const cloudinary = require("cloudinary").v2
 
-const dotenv = require('dotenv')
+const fs = require("fs")
+
+const dotenv = require('dotenv');
+const { AppError } = require("../utils/appError");
 
 dotenv.config({ path: './config.env' })
 
 
 
-const cloudinaryConfig =cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-  api_key: process.env.CLOUD_API_KEY, 
-  api_secret: process.env.CLOUD_API_SECRET 
+cloudinary.config({ 
+  cloud_name: "dzmywspke", 
+  api_key: "416653822791848", 
+  api_secret: "-zF4lnBcBZJT6ctGIdjg0cO1peM" 
 });
 
 
 
 const uploadToCloudinary = async (img) => {
+  try {
+    const imgPath = img.path
+    const randomNumber = Date.now() - Math.round(Math.random() * 1E9)
+    const public_id = `file-${randomNumber}`
+    const folder = "hideshi/images"
+        
+    const imgUrl = await cloudinary.uploader.upload(imgPath, {
+      public_id,
+      resource_type: "image",
+      folder
+    })
+      .then(img => {
+        fs.unlinkSync(imgPath);
+        return img.url
+      })
+    .catch(err => {return new AppError(err)})
+    
+    return imgUrl
+    
   
-  console.log("working on this upload to cloudinary storage service")
-  return img.path
+  } catch (error) {
+    return new AppError(error)
+  }
+  
+ 
+          
+
+ 
 }
 
 

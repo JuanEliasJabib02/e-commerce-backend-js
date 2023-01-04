@@ -7,7 +7,7 @@ const initRelationships = () => {
   Category.hasMany(Product)
   Product.belongsTo(Category)
 
-  Product.hasOne(productImg)
+  Product.hasMany(productImg)
   productImg.belongsTo(Product)
 
 }

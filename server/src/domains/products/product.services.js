@@ -3,6 +3,9 @@ const { StatusCodes } = require("http-status-codes")
 const { uploadToCloudinary } = require("../../storage/cloudinary")
 const { AppError } = require("../../utils/appError")
 const { Product } = require("./model/product.model")
+const { productImg } = require("./model/productImg.model")
+const { createProductImg } = require("./middleware/createProductImg")
+
 
 const createProduct = async (data, imgs) => { 
   
@@ -31,11 +34,12 @@ const createProduct = async (data, imgs) => {
     price,
     quantity
   })
+  
 
   if (imgs.length > 0) {
     imgs.map(async img => {
       const imgUrl = await uploadToCloudinary(img)
-      
+      createProductImg(imgUrl, product.id)
     })
   }
 
@@ -50,7 +54,17 @@ const getAllProducts = async () => {
     where: {
       status: "available"
     },
-    /* INCLUDE IMGS PRODUCT */
+    include: [
+      {
+        model: productImg,
+        attributes:["imgUrl"]
+        
+      },
+      
+    ]
+  
+  
+    
   })
 
 

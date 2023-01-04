@@ -1,7 +1,8 @@
 
 const { StatusCodes } = require("http-status-codes");
 const { AppError } = require("../../utils/appError");
-const { Category } = require("./category.model")
+const { Category } = require("./category.model");
+const { Product } = require("../products/model/product.model");
 
 const createCategory = async (data) => {
 
@@ -37,7 +38,12 @@ const getAllCategories = async () => {
   const categories = await Category.findAll({
     where: {
       status:"active"
-    }
+    },
+        include: [
+      {
+        model:Product
+      }
+    ]
   })
 
   
@@ -51,8 +57,13 @@ const getCategoryById = async (id) => {
     where: {
       status: "active",
       id
-    }
-     /* INCLUDE PRODUCTS */
+    },
+    include: [
+      {
+        model:Product
+      }
+    ]
+     
   })
 
   if (!category) {
