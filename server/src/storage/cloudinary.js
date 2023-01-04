@@ -14,6 +14,10 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 })
 
+const deleteFileFromLocal = async (filePath) => {
+  fs.unlink(imgPath)
+}
+
 const uploadToCloudinary = async (img) => {
   try {
     const imgPath = img.path
@@ -27,9 +31,11 @@ const uploadToCloudinary = async (img) => {
       resource_type: 'image',
       folder
     })
-      .then(img => {
-        fs.unlinkSync(imgPath)
+      .then(async img => {
+        const deleteFileFromLocal = fs.unlinkSync(imgPath)
         return img.url
+        
+        
       })
       .catch(err => { return new AppError(err) })
 

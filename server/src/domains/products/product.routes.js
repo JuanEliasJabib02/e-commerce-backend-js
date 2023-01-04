@@ -28,8 +28,16 @@ productRouter.get('/', getAllProducts)
 
 productRouter.get('/:id', getProductById)
 
-productRouter.patch('/:id', updateProduct)
+productRouter.patch('/:id',
+  checkToken,
+  onlyAdmin,
+  updateProduct
+)
 
-productRouter.delete('/:id', deleteProduct)
+productRouter.delete('/:id',
+  checkToken,
+  onlyAdmin,
+  deleteProduct
+)
 
 module.exports = { productRouter }

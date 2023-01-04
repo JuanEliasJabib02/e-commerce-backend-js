@@ -107,9 +107,7 @@ const updateProduct = async (id, data) => {
 
   await product.update({ name, details, price })
 
-  const response = 'success'
-
-  return response
+  return true
 }
 
 const deleteProduct = async (id) => {
@@ -128,11 +126,9 @@ const deleteProduct = async (id) => {
     )
   }
 
-  await product.update({ status: 'delete' })
+   await product.update({ status: 'delete' })
 
-  const response = 'deleted'
-
-  return response
+  return true 
 }
 module.exports = {
   createProduct,
