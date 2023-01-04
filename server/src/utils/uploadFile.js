@@ -6,8 +6,8 @@ const MAX_IMAGE_SIZE = 5000000 //5MB
 
 const multerErrorHandler = (err, req, res, next) => {
   try {
-    if (err.message === "ONLY_PNG_ALLOWED") {
-      return res.status(StatusCodes.NOT_ACCEPTABLE).json({error: "NOT_ACCEPTABLE"})
+    if (err && err.message === "ONLY_PNG_ALLOWED") {
+      return res.status(StatusCodes.NOT_ACCEPTABLE).json({error: "Only png is allowed"})
     }
     if (err && err.field === "productImg") {
       return res.status(StatusCodes.REQUEST_TOO_LONG)
@@ -38,7 +38,6 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const ext = file.originalname.split(".").pop()
-    console.log(ext)
     const filename = `file-${Date.now()}.${ext}`
     cb(null,filename)
   },

@@ -12,3 +12,13 @@ const cloudinaryConfig =cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET 
 });
 
+
+
+const uploadToCloudinary = async (img) => {
+  
+
+  return img.path
+}
+
+
+module.exports = {uploadToCloudinary}

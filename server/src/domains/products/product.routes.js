@@ -21,16 +21,11 @@ const productRouter = express.Router()
 productRouter.post("/",
   checkToken,
   onlyAdmin,
-  uploadFile.array("productImg",4),
+  uploadFile.array("productImg", 4),
+  multerErrorHandler,
   createProduct
 )
 
-productRouter.post("/test", uploadFile.array("productImg"),
-  multerErrorHandler,
-  (req, res) => {
-  res.send({a:1})
-  
-})
 
 
 //get all products
