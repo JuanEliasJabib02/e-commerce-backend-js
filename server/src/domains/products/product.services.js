@@ -1,5 +1,7 @@
 
+const { StatusCodes } = require("http-status-codes")
 const { uploadToCloudinary } = require("../../storage/cloudinary")
+const { AppError } = require("../../utils/appError")
 const { Product } = require("./model/product.model")
 
 const createProduct = async (data, imgs) => { 
@@ -15,7 +17,11 @@ const createProduct = async (data, imgs) => {
   })
 
   if (productExist) {
-    return "PRODUCT_ALREADY_EXIST"
+    return new AppError(
+      "PRODUCT_ALREADY_EXIST",
+      StatusCodes.BAD_REQUEST,
+      true
+    )
   }
 
   const product = await Product.create({

@@ -13,7 +13,6 @@ const sendErrorProduction = (err, req, res) => {
 }
 
 const sendErrorDevelopment = (err, req, res) => {
-
   const statusCode = err.statusCode || 500
   res.status(statusCode).json({
     status: "fail",

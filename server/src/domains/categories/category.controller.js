@@ -9,11 +9,11 @@ const createCategory = async (req, res, next) => {
     
     const response = await categoryServices.createCategory(data)
 
-    if (response === "CATEGORY_ALREADY_EXIST") {
-      res.status(StatusCodes.BAD_REQUEST)
-        .json({error:response})
-      return
-    }
+   	const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
 
     res.status(StatusCodes.CREATED)
       .json(response)
@@ -29,8 +29,6 @@ const getAllCategories = async (req, res, next) => {
     
     const response = await categoryServices.getAllCategories()
 
-
-
     res.status(StatusCodes.OK).json(response)
     
   } catch (error) {
@@ -43,14 +41,13 @@ const getCategoryById = async (req, res, next) => {
 
     const { id } = req.params
 
-    
     const response = await categoryServices.getCategoryById(id)
 
-    if (response === "CATEGORY_DONT_EXIST") {
-      res.status(StatusCodes.NOT_FOUND)
-        .json({error:response})
-      return
-    }
+    const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
 
     res.status(StatusCodes.OK).json(response)
 
@@ -67,11 +64,11 @@ const updateCategory = async (req, res, next) => {
     const { id } = req.params;
     const response = await categoryServices.updateCategory(id,data)
 
-    if (response === "CATEGORY_DONT_EXIST") {
-      res.status(StatusCodes.NOT_FOUND)
-        .json({error:response})
-      return
-    }
+   	const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
 
     res.status(StatusCodes.NO_CONTENT).json(response)
     
@@ -87,14 +84,14 @@ const deleteCategory = async (req, res, next) => {
     const { id } = req.params
 
     const response = await categoryServices.deleteCategory(id)
-    if (response === "CATEGORY_DONT_EXIST") {
-      res.status(StatusCodes.NOT_FOUND)
-        .json({ error: response })
-      return
-    }
+    
+    const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
 
     res.status(StatusCodes.NO_CONTENT).json(response)
-
     
   } catch (error) {
     next(error)

@@ -10,10 +10,11 @@ const createProduct = async (req, res, next) => {
 
     const response = await productServices.createProduct(data, imgs);
     
-    if (response === "PRODUCT_ALREADY_EXIST") {
-      return res.status(StatusCodes.BAD_REQUEST)
-              .json({error:"PRODUCT_ALREADY_EXIST"})
-    }
+   	const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
 
     res.status(StatusCodes.CREATED).json(response)
   

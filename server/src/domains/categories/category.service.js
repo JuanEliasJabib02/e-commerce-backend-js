@@ -1,4 +1,6 @@
 
+const { StatusCodes } = require("http-status-codes");
+const { AppError } = require("../../utils/appError");
 const { Category } = require("./category.model")
 
 const createCategory = async (data) => {
@@ -7,14 +9,19 @@ const createCategory = async (data) => {
   
   	const categoryExist = await Category.findOne({
 			where: {
-				name,
+        name,
+        status:"active"
         
       },
       /* INCLUDE PRODUCTS */
 		});
 
 		if (categoryExist) {
-			return 'CATEGORY_ALREADY_EXIST'
+      return new AppError(
+        'CATEGORY_ALREADY_EXIST',
+        StatusCodes.BAD_REQUEST,
+        true
+      )
 		}
 
 		const category = await Category.create({
@@ -39,8 +46,7 @@ const getAllCategories = async () => {
 }
 
 const getCategoryById = async (id) => {
-
-  //REFACT IN A MIDDLEWARE LATER
+  
   const category = await Category.findOne({
     where: {
       status: "active",
@@ -50,7 +56,11 @@ const getCategoryById = async (id) => {
   })
 
   if (!category) {
-    return "CATEGORY_DONT_EXIST"
+    return new AppError(
+      "CATEGORY_DONT_EXIST",
+      StatusCodes.NOT_FOUND,
+      true,
+    )
   }
 
   return category
@@ -70,20 +80,22 @@ const updateCategory = async (id, data) => {
     })
 
   if (!category) {
-    return "CATEGORY_DONT_EXIST"
+    return new AppError(
+      "CATEGORY_DONT_EXIST",
+      StatusCodes.NOT_FOUND,
+      true,
+    )
   }
 
   await category.update({
     name
   })
 
-  return
+  return true
   
 }
 
 const deleteCategory = async (id) => {
-
-
 
    //REFACT IN A MIDDLEWARE LATER
     const category = await Category.findOne({
@@ -94,14 +106,18 @@ const deleteCategory = async (id) => {
     })
 
   if (!category) {
-    return "CATEGORY_DONT_EXIST"
+    return new AppError(
+      "CATEGORY_DONT_EXIST",
+      StatusCodes.NOT_FOUND,
+      true,
+    )
   }
 
   await category.update({
     status:"deleted"
   })
 
-  return
+  return true
 
 }
 

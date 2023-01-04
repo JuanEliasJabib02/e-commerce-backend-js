@@ -61,9 +61,11 @@ const login = async (data) => {
   }
 
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
-    expiresIn: '1d'
-  })
+  const token = jwt.sign(
+    { id: user.id },
+    process.env.JWT_SIGN,
+    { expiresIn: '1d'}
+  )
 
 
   return {token}

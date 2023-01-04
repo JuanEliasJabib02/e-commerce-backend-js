@@ -1,5 +1,4 @@
 
-const { AppError } = require('../../utils/appError')
 const userService = require('./auth.service')
 const {  StatusCodes } = require("http-status-codes")
 

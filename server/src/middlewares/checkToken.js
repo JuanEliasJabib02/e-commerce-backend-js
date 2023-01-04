@@ -4,13 +4,15 @@ const {User} = require("../domains/users/user.model")
 
 dotenv.config({ path: './config.env' })
 const { StatusCodes } = require('http-status-codes')
+const { AppError } = require('../utils/appError')
 
 const checkToken = async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
-      res.status(StatusCodes.UNAUTHORIZED)
-        .json({ error: "TOKEN_NOT_VALID" })
-      return
+      return next(new AppError(
+       "TOKEN_NOT_VALID",
+       StatusCodes.UNAUTHORIZED
+      ))
     }
 
     const token = req.headers.authorization.split(' ').pop()
@@ -25,9 +27,11 @@ const checkToken = async (req, res, next) => {
     })
 
     if (!userActive) {
-      res.status(StatusCodes.NOT_FOUND)
-        .json({error:"USER_NOT_FOUND"})
-      return
+      return next(new AppError(
+        "USER_NOT_FOUND",
+        StatusCodes.NOT_FOUND,
+        true
+      ))
     }
 
     req.userActive = userActive
@@ -35,18 +39,17 @@ const checkToken = async (req, res, next) => {
     next()
   } catch (err) {
     if (err.message === "jwt expired") {
-      res.status(StatusCodes.FORBIDDEN)
-        .json({ error: "TOKEN EXPIRED" })
-      return
+      return next(new AppError(
+        "TOKEN_EXPIRED",
+        StatusCodes.FORBIDDEN
+      ))
     }
     if (err.message === "jwt malformed") {
-      res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: "TOKEN IS WRONG" })
-      return
+      return next(new AppError(
+        "TOKEN_IS_WRONG",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      ))
     }
-
-    next(err)
-    
   }
 }
 
