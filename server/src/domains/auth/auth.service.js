@@ -2,6 +2,8 @@ const { User } = require('../users/user.model')
 const { encrypt, compare } = require('../../utils/handlePassword')
 const { Email } = require('../../services/email/email.service')
 const jwt = require('jsonwebtoken')
+const { StatusCodes } = require('http-status-codes')
+const { AppError } = require('../../utils/appError')
 
 const signUp = async (data) => {
   const { firstName, lastName, email, password} = data
@@ -13,7 +15,11 @@ const signUp = async (data) => {
   })
 
   if (userExist) {
-    return 'USER_ALREADY_EXIST'
+    return new AppError(
+      "USER_ALREADY_EXIST",
+      StatusCodes.BAD_REQUEST,
+      true
+    )
   }
 
   const hashPassword = await encrypt(password)
@@ -44,15 +50,16 @@ const login = async (data) => {
     }
   })
 
-  if (!user) {
-    return "USER_AND_PASSWORD_FAIL"
-  }
-
   const passOkay = await compare(password, user.password)
 
-  if (!passOkay) {
-    return "USER_AND_PASSWORD_FAIL"
+  if (!user || !passOkay) {
+    return new AppError(
+      "USER_AND_PASSWORD_FAIL",
+      StatusCodes.BAD_REQUEST,
+      true
+    )
   }
+
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SIGN, {
     expiresIn: '1d'

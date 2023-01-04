@@ -1,18 +1,18 @@
 
+const { AppError } = require('../../utils/appError')
 const userService = require('./auth.service')
 const {  StatusCodes } = require("http-status-codes")
 
 const signUp = async (req, res, next) => {
   try {
     const data = req.body
-    const response = await userService.signUp(data)
-
-    if (response === 'USER_ALREADY_EXIST') {
-			res.status(StatusCodes.BAD_REQUEST).json({ error: response })
-			return
-		} 
-
-		res.status(StatusCodes.CREATED).json(response)
+		const response = await userService.signUp(data)
+		const error = response.stack
+		if (error) {
+			return next(response)
+		}
+		
+		res.status(StatusCodes.CREATED).json(response) 
 			
   } catch (err) {
     next(err)
@@ -22,13 +22,15 @@ const signUp = async (req, res, next) => {
 const login = async (req, res, next) => {
 	try {
 		const data = req.body
-		const response = await userService.login(data)
 
-		if (response === "USER_AND_PASSWORD_FAIL") {
-			res.status(StatusCodes.UNAUTHORIZED).json({error:response})
-		} else {
-			res.status(StatusCodes.OK).json(response)
-		}
+		const response = await userService.login(data)
+		const error = response.stack
+
+		if (error) {
+			return next(response)
+		} 
+		res.status(StatusCodes.OK).json(response)
+		
 		
   } catch (err) {
     next(err)
