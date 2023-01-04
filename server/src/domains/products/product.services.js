@@ -33,7 +33,7 @@ const createProduct = async (data, imgs) => {
   })
 
   if (imgs.length > 0) {
-    imgs.map(async img => {
+    await imgs.map(async img => {
       const imgUrl = await uploadToCloudinary(img)
       createProductImg(imgUrl, product.id)
     })
@@ -59,4 +59,90 @@ const getAllProducts = async () => {
   return products
 }
 
-module.exports = { createProduct, getAllProducts }
+
+const getProductById = async (id) => {
+
+  const product = await Product.findOne({
+    where: {
+      status: "available",
+      id
+    },
+    include: [
+      {
+        model: productImg,
+        attributes: ['imgUrl']
+
+      }
+    ]
+  })
+
+  if (!product) {
+    return new AppError(
+    "PRODUCT_NOT_FOUND",
+     StatusCodes.NOT_FOUND,
+      true
+    )
+  }
+
+  return product
+}
+
+const updateProduct = async (id,data) => {
+
+  //MIDDLEWARE REFACT LATER
+
+  const { name,details,price} = data;
+  
+  const product = await Product.findOne({
+    where: {
+      status: "available",
+      id
+    },
+  })
+
+    if (!product) {
+    return new AppError(
+    "PRODUCT_NOT_FOUND",
+     StatusCodes.NOT_FOUND,
+      true
+    )
+    }
+  
+  await product.update({name,details,price})
+  
+  const response = "success"
+
+  return response
+}
+
+const deleteProduct = async (id) => {
+
+    const product = await Product.findOne({
+    where: {
+      status: "available",
+      id
+    },
+  })
+
+    if (!product) {
+    return new AppError(
+    "PRODUCT_NOT_FOUND",
+     StatusCodes.NOT_FOUND,
+      true
+    )
+    }
+  
+  await product.update({ status: "delete" })
+
+  const response = "deleted"
+  
+  return response
+
+}
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct ,
+  deleteProduct
+}

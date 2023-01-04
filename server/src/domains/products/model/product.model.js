@@ -28,7 +28,7 @@ const Product = db.define('products', {
   status: {
     type: DataTypes.ENUM([
       'available',
-      'outstock'
+      'outstock',
     ]),
     defaultValue: 'available'
   },

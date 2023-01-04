@@ -1,5 +1,10 @@
 const express = require('express')
-const { createProduct, getAllProducts } = require('./product.controller')
+const {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct } = require('./product.controller')
 
 // Controllers
 
@@ -10,9 +15,6 @@ const { uploadFile, multerErrorHandler, multerFileTypeErrorHandler } = require('
 
 const productRouter = express.Router()
 
-// Endpoints
-
-// createProduct(ONLYADMIN)
 
 productRouter.post('/',
   checkToken,
@@ -22,14 +24,12 @@ productRouter.post('/',
   createProduct
 )
 
-// get all products
-
 productRouter.get('/', getAllProducts)
 
-// Get product by Id
+productRouter.get("/:id", getProductById)
 
-// Update product
+productRouter.patch("/:id", updateProduct)
 
-// delete product
+productRouter.delete("/:id", deleteProduct)
 
 module.exports = { productRouter }

@@ -17,10 +17,13 @@ cloudinary.config({
 
 const uploadToCloudinary = async (img) => {
   try {
+   
     const imgPath = img.path
     const randomNumber = Date.now() - Math.round(Math.random() * 1E9)
     const public_id = `file-${randomNumber}`
     const folder = 'hideshi/images'
+    const localFolderToDelete = `${__dirname}/../public`
+    console.log()
 
     const imgUrl = await cloudinary.uploader.upload(imgPath, {
       public_id,
@@ -28,7 +31,7 @@ const uploadToCloudinary = async (img) => {
       folder
     })
       .then(img => {
-        fs.unlink(imgPath, (err) => {return} );
+        fs.unlinkSync(imgPath);
         return img.url
       })
       .catch(err => { return new AppError(err) })
