@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes')
 
-const onlyAdmin = async (req, res, next) => {
+const onlyAdmin =  (req, res, next) => {
   try {
     const { userActive } = req
 

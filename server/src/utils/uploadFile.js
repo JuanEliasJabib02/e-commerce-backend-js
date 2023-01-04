@@ -4,9 +4,11 @@ const multer = require("multer")
 const MAX_IMAGE_SIZE = 5000000 //5MB
 
 
-const multerLimitSizeErrorHandler = (err, req, res, next) => {
-
+const multerErrorHandler = (err, req, res, next) => {
   try {
+    if (err.message === "ONLY_PNG_ALLOWED") {
+      return res.status(StatusCodes.NOT_ACCEPTABLE).json({error: "NOT_ACCEPTABLE"})
+    }
     if (err && err.field === "productImg") {
       return res.status(StatusCodes.REQUEST_TOO_LONG)
         .json({error:"Img is to big,only 5mb allowed"})
@@ -17,8 +19,16 @@ const multerLimitSizeErrorHandler = (err, req, res, next) => {
   }
 }
 
-const checkFileType = async (file, cb) => {
 
+const checkFileType = (req, file, cb) => {
+  
+  if (file.mimetype === "image/png") {
+    cb(null,true)
+  }
+  else {
+    return cb(new Error("ONLY_PNG_ALLOWED",500))
+  }
+  
 }
 
 const storage = multer.diskStorage({
@@ -27,7 +37,6 @@ const storage = multer.diskStorage({
     cb(null,pathStorage)
   },
   filename: function (req, file, cb) {
-    console.log(file)
     const ext = file.originalname.split(".").pop()
     console.log(ext)
     const filename = `file-${Date.now()}.${ext}`
@@ -38,7 +47,11 @@ const storage = multer.diskStorage({
 
 const uploadFile = multer({
   storage,
-  limits:{fileSize:MAX_IMAGE_SIZE}
+  limits: { fileSize: MAX_IMAGE_SIZE },
+  fileFilter: (req,file,cb) => {
+    checkFileType(req,file,cb)
+  }
+  
 })
 
-module.exports = { uploadFile ,multerLimitSizeErrorHandler}
+module.exports = { uploadFile ,multerErrorHandler}
