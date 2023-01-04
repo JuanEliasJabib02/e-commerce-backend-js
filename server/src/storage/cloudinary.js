@@ -8,21 +8,18 @@ const dotenv = require('dotenv')
 
 dotenv.config({ path: './config.env' })
 
-
-cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-  api_key: process.env.CLOUD_API_KEY, 
-  api_secret: process.env.CLOUD_API_SECRET 
-});
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET
+})
 
 const uploadToCloudinary = async (img) => {
   try {
-   
     const imgPath = img.path
     const randomNumber = Date.now() - Math.round(Math.random() * 1E9)
     const public_id = `file-${randomNumber}`
     const folder = 'hideshi/images'
-    const localFolderToDelete = `${__dirname}/../public`
     console.log()
 
     const imgUrl = await cloudinary.uploader.upload(imgPath, {
@@ -31,7 +28,7 @@ const uploadToCloudinary = async (img) => {
       folder
     })
       .then(img => {
-        fs.unlinkSync(imgPath);
+        fs.unlinkSync(imgPath)
         return img.url
       })
       .catch(err => { return new AppError(err) })

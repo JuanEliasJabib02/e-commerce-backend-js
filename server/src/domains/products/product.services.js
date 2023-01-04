@@ -59,12 +59,10 @@ const getAllProducts = async () => {
   return products
 }
 
-
 const getProductById = async (id) => {
-
   const product = await Product.findOne({
     where: {
-      status: "available",
+      status: 'available',
       id
     },
     include: [
@@ -78,8 +76,8 @@ const getProductById = async (id) => {
 
   if (!product) {
     return new AppError(
-    "PRODUCT_NOT_FOUND",
-     StatusCodes.NOT_FOUND,
+      'PRODUCT_NOT_FOUND',
+      StatusCodes.NOT_FOUND,
       true
     )
   }
@@ -87,62 +85,59 @@ const getProductById = async (id) => {
   return product
 }
 
-const updateProduct = async (id,data) => {
+const updateProduct = async (id, data) => {
+  // MIDDLEWARE REFACT LATER
 
-  //MIDDLEWARE REFACT LATER
+  const { name, details, price } = data
 
-  const { name,details,price} = data;
-  
   const product = await Product.findOne({
     where: {
-      status: "available",
+      status: 'available',
       id
-    },
+    }
   })
 
-    if (!product) {
+  if (!product) {
     return new AppError(
-    "PRODUCT_NOT_FOUND",
-     StatusCodes.NOT_FOUND,
+      'PRODUCT_NOT_FOUND',
+      StatusCodes.NOT_FOUND,
       true
     )
-    }
-  
-  await product.update({name,details,price})
-  
-  const response = "success"
+  }
+
+  await product.update({ name, details, price })
+
+  const response = 'success'
 
   return response
 }
 
 const deleteProduct = async (id) => {
-
-    const product = await Product.findOne({
+  const product = await Product.findOne({
     where: {
-      status: "available",
+      status: 'available',
       id
-    },
+    }
   })
 
-    if (!product) {
+  if (!product) {
     return new AppError(
-    "PRODUCT_NOT_FOUND",
-     StatusCodes.NOT_FOUND,
+      'PRODUCT_NOT_FOUND',
+      StatusCodes.NOT_FOUND,
       true
     )
-    }
-  
-  await product.update({ status: "delete" })
+  }
 
-  const response = "deleted"
-  
+  await product.update({ status: 'delete' })
+
+  const response = 'deleted'
+
   return response
-
 }
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
-  updateProduct ,
+  updateProduct,
   deleteProduct
 }

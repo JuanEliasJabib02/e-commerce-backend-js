@@ -36,7 +36,6 @@ const getAllProducts = async (req, res, next) => {
 
 const getProductById = async (req, res, next) => {
   try {
-
     const { id } = req.params
 
     const response = await productServices.getProductById(id)
@@ -48,36 +47,31 @@ const getProductById = async (req, res, next) => {
     }
 
     res.status(StatusCodes.OK).json(response)
-    
   } catch (error) {
     next(error)
   }
 }
 
 const updateProduct = async (req, res, next) => {
-  
-    const { id } = req.params
-    const data = req.body
-    const response = await productServices.updateProduct(id, data)
-  
-    const error = response.stack
+  const { id } = req.params
+  const data = req.body
+  const response = await productServices.updateProduct(id, data)
 
-    if (error) {
-      return next(response)
-    }
+  const error = response.stack
 
-    res.status(StatusCodes.NO_CONTENT).json(response)
-  
+  if (error) {
+    return next(response)
+  }
 
+  res.status(StatusCodes.NO_CONTENT).json(response)
 }
 
 const deleteProduct = async (req, res, next) => {
   try {
-
     const { id } = req.params
 
     const response = await productServices.deleteProduct(id)
-  
+
     const error = response.stack
 
     if (error) {
@@ -85,13 +79,9 @@ const deleteProduct = async (req, res, next) => {
     }
 
     res.status(StatusCodes.NO_CONTENT).json(response)
-  
-    
   } catch (error) {
     next(error)
   }
-    
-    
 }
 
 module.exports = {
