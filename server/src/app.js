@@ -6,8 +6,8 @@ const { router } = require('./routes')
 const swaggerUI = require('swagger-ui-express')
 const helmet = require('helmet')
 const compression = require('compression')
-//Init models
-const {Models} = require("./models/index")
+// Init models
+const { Models } = require('./models/index')
 // Utils
 const { globalErrorHandler } = require('./utils/globalErrorHandler')
 const { openApiConfig } = require('./domains/docs/swagger')
@@ -39,7 +39,6 @@ app.all('*', (req, res, next) => {
     StatusCodes.NOT_FOUND,
     true
   ))
-
 })
 
 /*  */

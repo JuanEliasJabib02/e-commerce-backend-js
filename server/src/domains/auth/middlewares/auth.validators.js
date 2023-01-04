@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi')
 
 const userSchema = Joi.object({
   firstName: Joi.string()
@@ -19,7 +19,7 @@ const userSchema = Joi.object({
     .required(),
   role: Joi.string()
     .optional()
-  
+
 })
 
 const loginSchema = Joi.object({
@@ -31,39 +31,31 @@ const loginSchema = Joi.object({
     .min(3)
     .max(50)
     .required()
-    
+
 })
 
-
-const validateAuth =  (req, res, next) => {
-  
+const validateAuth = (req, res, next) => {
   const data = req.body
 
-  const { error } =  userSchema.validate(data,{abortEarly:false})
-  
+  const { error } = userSchema.validate(data, { abortEarly: false })
+
   if (error) {
-    return res.json({error:error.details})
+    return res.json({ error: error.details })
   }
 
   next()
 }
 
 const validateLogin = (req, res, next) => {
-
-    
   const data = req.body
 
-  const { error } =  loginSchema.validate(data,{abortEarly:false})
-  
+  const { error } = loginSchema.validate(data, { abortEarly: false })
+
   if (error) {
-    return res.json({error:error.details})
+    return res.json({ error: error.details })
   }
 
   next()
-  
 }
 
-
-module.exports = { validateAuth,validateLogin }
-
-
+module.exports = { validateAuth, validateLogin }

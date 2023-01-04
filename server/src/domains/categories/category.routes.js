@@ -1,33 +1,31 @@
-const express = require("express")
-const { createCategory, getAllCategories, updateCategory, deleteCategory } = require("./category.controller")
-const { validateCategory } = require("./middlewares/category.validator")
-const { checkToken } = require("../../middlewares/checkToken")
-const { onlyAdmin } = require("../../middlewares/onlyAdmin")
-const { getCategoryById } = require("./category.controller")
+const express = require('express')
+const { createCategory, getAllCategories, updateCategory, deleteCategory } = require('./category.controller')
+const { validateCategory } = require('./middlewares/category.validator')
+const { checkToken } = require('../../middlewares/checkToken')
+const { onlyAdmin } = require('../../middlewares/onlyAdmin')
+const { getCategoryById } = require('./category.controller')
 
-//Controllers
+// Controllers
 
-
-//Middlewares
+// Middlewares
 
 const categoryRouter = express.Router()
 
-
-//Endpoints
-categoryRouter.post("/",
+// Endpoints
+categoryRouter.post('/',
   checkToken,
   onlyAdmin,
   validateCategory,
   createCategory
 )
 
-categoryRouter.get("/", getAllCategories)
+categoryRouter.get('/', getAllCategories)
 
-categoryRouter.get("/:id", getCategoryById)
+categoryRouter.get('/:id', getCategoryById)
 
 // Update categories (ONLYADMIN)
 
-categoryRouter.patch("/:id",
+categoryRouter.patch('/:id',
   checkToken,
   onlyAdmin,
   validateCategory,
@@ -35,10 +33,10 @@ categoryRouter.patch("/:id",
 )
 // Delete category (ONLYADMIN)
 
-categoryRouter.delete("/:id",
+categoryRouter.delete('/:id',
   checkToken,
   onlyAdmin,
   deleteCategory
 )
 
-module.exports = {categoryRouter}
+module.exports = { categoryRouter }

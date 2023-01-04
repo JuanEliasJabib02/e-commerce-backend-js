@@ -1,24 +1,22 @@
-const { DataTypes } = require("sequelize");
-const { db } = require("../../../../config/postgres");
+const { DataTypes } = require('sequelize')
+const { db } = require('../../../../config/postgres')
 
-
-const productImg = db.define("productImgs", {
+const productImg = db.define('productImgs', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    unique:true,
+    unique: true
   },
   imgUrl: {
     type: DataTypes.STRING,
-    allowNull:false
+    allowNull: false
   },
   productId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    
+    allowNull: false
+
   }
 })
-
 
 module.exports = { productImg }

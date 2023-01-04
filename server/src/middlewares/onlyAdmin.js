@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes')
 
-const onlyAdmin =  (req, res, next) => {
+const onlyAdmin = (req, res, next) => {
   try {
     const { userActive } = req
 
@@ -8,13 +8,11 @@ const onlyAdmin =  (req, res, next) => {
 
     if (role !== 'admin') {
       res.status(StatusCodes.FORBIDDEN)
-        .json({ error: "YOUR_DONT_HAVE_ACCESS" })
+        .json({ error: 'YOUR_DONT_HAVE_ACCESS' })
       return
     } else {
-       next()
+      next()
     }
-
-   
   } catch (err) {
     next(err)
   }

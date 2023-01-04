@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
-const {User} = require("../domains/users/user.model")
+const { User } = require('../domains/users/user.model')
 
 dotenv.config({ path: './config.env' })
 const { StatusCodes } = require('http-status-codes')
@@ -10,8 +10,8 @@ const checkToken = async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
       return next(new AppError(
-       "TOKEN_NOT_VALID",
-       StatusCodes.UNAUTHORIZED
+        'TOKEN_NOT_VALID',
+        StatusCodes.UNAUTHORIZED
       ))
     }
 
@@ -28,7 +28,7 @@ const checkToken = async (req, res, next) => {
 
     if (!userActive) {
       return next(new AppError(
-        "USER_NOT_FOUND",
+        'USER_NOT_FOUND',
         StatusCodes.NOT_FOUND,
         true
       ))
@@ -38,15 +38,15 @@ const checkToken = async (req, res, next) => {
 
     next()
   } catch (err) {
-    if (err.message === "jwt expired") {
+    if (err.message === 'jwt expired') {
       return next(new AppError(
-        "TOKEN_EXPIRED",
+        'TOKEN_EXPIRED',
         StatusCodes.FORBIDDEN
       ))
     }
-    if (err.message === "jwt malformed") {
+    if (err.message === 'jwt malformed') {
       return next(new AppError(
-        "TOKEN_IS_WRONG",
+        'TOKEN_IS_WRONG',
         StatusCodes.INTERNAL_SERVER_ERROR
       ))
     }

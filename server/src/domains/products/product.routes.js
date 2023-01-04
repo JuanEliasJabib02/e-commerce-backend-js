@@ -1,41 +1,34 @@
-const express = require("express")
-const { createProduct, getAllProducts } = require("./product.controller")
+const express = require('express')
+const { createProduct, getAllProducts } = require('./product.controller')
 
 // Controllers
 
 // Middlewares
-const { checkToken } = require("../../middlewares/checkToken")
-const { onlyAdmin } = require("../../middlewares/onlyAdmin")
-const { uploadFile, multerErrorHandler, multerFileTypeErrorHandler } = require("../../utils/uploadFile")
-
-
+const { checkToken } = require('../../middlewares/checkToken')
+const { onlyAdmin } = require('../../middlewares/onlyAdmin')
+const { uploadFile, multerErrorHandler, multerFileTypeErrorHandler } = require('../../utils/uploadFile')
 
 const productRouter = express.Router()
 
-
-//Endpoints
-
+// Endpoints
 
 // createProduct(ONLYADMIN)
 
-productRouter.post("/",
+productRouter.post('/',
   checkToken,
   onlyAdmin,
-  uploadFile.array("productImg", 4),
+  uploadFile.array('productImg', 4),
   multerErrorHandler,
   createProduct
 )
 
+// get all products
 
+productRouter.get('/', getAllProducts)
 
-//get all products
-
-productRouter.get("/", getAllProducts)
-
-//Get product by Id
+// Get product by Id
 
 // Update product
-
 
 // delete product
 

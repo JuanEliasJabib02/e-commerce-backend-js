@@ -6,7 +6,7 @@ const { StatusCodes } = require('http-status-codes')
 const { AppError } = require('../../utils/appError')
 
 const signUp = async (data) => {
-  const { firstName, lastName, email, password} = data
+  const { firstName, lastName, email, password } = data
 
   const userExist = await User.findOne({
     where: {
@@ -16,7 +16,7 @@ const signUp = async (data) => {
 
   if (userExist) {
     return new AppError(
-      "USER_ALREADY_EXIST",
+      'USER_ALREADY_EXIST',
       StatusCodes.BAD_REQUEST,
       true
     )
@@ -28,19 +28,17 @@ const signUp = async (data) => {
     firstName,
     lastName,
     email,
-    password: hashPassword,
+    password: hashPassword
   })
 
   user.password = undefined
 
   new Email(email).sendWelcome(firstName)
 
-  return {user}
+  return { user }
 }
 
 const login = async (data) => {
-
-	
   const { email, password } = data
 
   const user = await User.findOne({
@@ -54,21 +52,19 @@ const login = async (data) => {
 
   if (!user || !passOkay) {
     return new AppError(
-      "USER_AND_PASSWORD_FAIL",
+      'USER_AND_PASSWORD_FAIL',
       StatusCodes.BAD_REQUEST,
       true
     )
   }
 
-
   const token = jwt.sign(
     { id: user.id },
     process.env.JWT_SIGN,
-    { expiresIn: '1d'}
+    { expiresIn: '1d' }
   )
 
-
-  return {token}
+  return { token }
 }
 
 module.exports = { signUp, login }

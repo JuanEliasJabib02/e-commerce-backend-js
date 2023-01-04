@@ -1,27 +1,24 @@
 
-const { StatusCodes } = require("http-status-codes")
-const { uploadToCloudinary } = require("../../storage/cloudinary")
-const { AppError } = require("../../utils/appError")
-const { Product } = require("./model/product.model")
-const { productImg } = require("./model/productImg.model")
-const { createProductImg } = require("./middleware/createProductImg")
+const { StatusCodes } = require('http-status-codes')
+const { uploadToCloudinary } = require('../../storage/cloudinary')
+const { AppError } = require('../../utils/appError')
+const { Product } = require('./model/product.model')
+const { productImg } = require('./model/productImg.model')
+const { createProductImg } = require('./middleware/createProductImg')
 
-
-const createProduct = async (data, imgs) => { 
-  
+const createProduct = async (data, imgs) => {
   const { name, details, categoryId, price, quantity } = data
-  
 
   const productExist = await Product.findOne({
     where: {
       name,
-      status:"available"
+      status: 'available'
     }
   })
 
   if (productExist) {
     return new AppError(
-      "PRODUCT_ALREADY_EXIST",
+      'PRODUCT_ALREADY_EXIST',
       StatusCodes.BAD_REQUEST,
       true
     )
@@ -34,7 +31,6 @@ const createProduct = async (data, imgs) => {
     price,
     quantity
   })
-  
 
   if (imgs.length > 0) {
     imgs.map(async img => {
@@ -44,32 +40,23 @@ const createProduct = async (data, imgs) => {
   }
 
   return product
-
 }
 
-
 const getAllProducts = async () => {
-
   const products = await Product.findAll({
     where: {
-      status: "available"
+      status: 'available'
     },
     include: [
       {
         model: productImg,
-        attributes:["imgUrl"]
-        
-      },
-      
+        attributes: ['imgUrl']
+
+      }
     ]
-  
-  
-    
   })
 
-
   return products
-
 }
 
 module.exports = { createProduct, getAllProducts }
