@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes")
 const multer = require("multer")
+const { AppError } = require("./appError")
 
 const MAX_IMAGE_SIZE = 5000000 //5MB
 
@@ -7,11 +8,18 @@ const MAX_IMAGE_SIZE = 5000000 //5MB
 const multerErrorHandler = (err, req, res, next) => {
   try {
     if (err && err.message === "ONLY_PNG_ALLOWED") {
-      return res.status(StatusCodes.NOT_ACCEPTABLE).json({error: "Only png is allowed"})
+      return next(new AppError(
+        "ONLY_PNG_ALLOWED",
+        StatusCodes.NOT_ACCEPTABLE,
+        true
+      ))
     }
     if (err && err.field === "productImg") {
-      return res.status(StatusCodes.REQUEST_TOO_LONG)
-        .json({error:"Img is to big,only 5mb allowed"})
+      return next(new AppError(
+        "ONLY_5MB_ALLOWED-IMG-TO-BIG",
+        StatusCodes.REQUEST_TOO_LONG,
+        true
+      ))
     }
     next()
   } catch (error) {
@@ -26,7 +34,11 @@ const checkFileType = (req, file, cb) => {
     cb(null,true)
   }
   else {
-    return cb(new Error("ONLY_PNG_ALLOWED",500))
+    return cb(new AppError(
+      "ONLY_PNG_ALLOWED",
+      StatusCodes.BAD_REQUEST,
+      true
+    ))
   }
   
 }
