@@ -2,16 +2,18 @@ const cloudinary = require('cloudinary').v2
 
 const fs = require('fs')
 
-const dotenv = require('dotenv')
 const { AppError } = require('../utils/appError')
+
+const dotenv = require('dotenv')
 
 dotenv.config({ path: './config.env' })
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
-})
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.CLOUD_API_KEY, 
+  api_secret: process.env.CLOUD_API_SECRET 
+});
 
 const uploadToCloudinary = async (img) => {
   try {
@@ -26,7 +28,7 @@ const uploadToCloudinary = async (img) => {
       folder
     })
       .then(img => {
-        fs.unlinkSync(imgPath)
+        fs.unlink(imgPath, (err) => {return} );
         return img.url
       })
       .catch(err => { return new AppError(err) })
