@@ -8,11 +8,8 @@ const db = new Sequelize({
   host: process.env.POSTGRES_HOST,
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
-  port: process.env.POSTGRES_PORT,
-  database:
-		process.env.NODE_ENV === 'test'
-		  ? process.env.POSTGRES_DB_TEST
-		  : process.env.POSTGRES_DB,
+  port: process.env.POSTGRES_PORT || 5432,
+  database:process.env.POSTGRES_DB,
   logging: false,
   dialectOptions:
 		process.env.NODE_ENV === 'production'
