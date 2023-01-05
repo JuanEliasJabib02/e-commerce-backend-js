@@ -12,14 +12,14 @@ const db = new Sequelize({
   database:process.env.POSTGRES_DB,
   logging: false,
   dialectOptions:
-		process.env.NODE_ENV === 'production'
-		  ? {
-		      ssl: {
-		        required: true,
-		        rejectUnauthorized: false
-		      }
-			  }
-		  : {}
+    process.env.NODE_ENV === "production"
+      ?
+      {
+        ssl: {
+          require: false,
+        }
+      }
+      : {}
 })
 
 const postgresConnect = () => {
