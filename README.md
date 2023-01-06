@@ -15,5 +15,5 @@ This is a list of the main technologies included in this Starter:
 7. [Pino](https://getpino.io/) Very low overhead Node.js logger.
 8. [Standard](https://standardjs.com/) JavaScript Style Guide, with linter & automatic code fixer.
 9. [nodemon](https://nodemon.io/) Simple monitor script for use during development.
-10.[Joi](https://joi.dev/) Lets you describe and validate your data using a simple, intuitive, and readable language.
-11.[Pug](https://pugjs.org/api/getting-started.html) Pug is a high performance template engine heavily influenced by Haml and implemented with JavaScript for Node.js and browsers.
+10. [Joi](https://joi.dev/) Lets you describe and validate your data using a simple, intuitive, and readable language.
+11. [Pug](https://pugjs.org/api/getting-started.html) Pug is a high performance template engine heavily influenced by Haml and implemented with JavaScript for Node.js and browsers.
