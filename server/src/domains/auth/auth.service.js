@@ -64,7 +64,7 @@ const login = async (data) => {
     { expiresIn: '1d' }
   )
 
-  return { token }
+  return { user, token }
 }
 
 module.exports = { signUp, login }
