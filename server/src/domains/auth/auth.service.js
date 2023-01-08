@@ -48,7 +48,9 @@ const login = async (data) => {
     }
   })
 
-  user.password = undefined;
+  /*  user.password = undefined; */
+  
+
 
   const passOkay = await compare(password, user.password)
 
@@ -65,6 +67,10 @@ const login = async (data) => {
     process.env.JWT_SIGN,
     { expiresIn: '1d' }
   )
+
+  user.password = undefined
+  
+  console.log(user)
 
   return { user, token }
 }
