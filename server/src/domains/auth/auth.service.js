@@ -48,6 +48,8 @@ const login = async (data) => {
     }
   })
 
+  user.password = undefined;
+
   const passOkay = await compare(password, user.password)
 
   if (!user || !passOkay) {
