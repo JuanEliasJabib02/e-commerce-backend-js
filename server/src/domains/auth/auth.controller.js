@@ -22,6 +22,7 @@ const login = async (req, res, next) => {
     const data = req.body
 
     const response = await userService.login(data)
+    
     const error = response.stack
 
     if (error) {

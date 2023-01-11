@@ -39,8 +39,11 @@ const signUp = async (data) => {
   return { user }
 }
 
+
 const login = async (data) => {
   const { email, password } = data
+
+  console.log(email)
 
   const user = await User.findOne({
     where: {
@@ -49,19 +52,27 @@ const login = async (data) => {
     }
   })
 
-  /*  user.password = undefined; */
-  
 
 
-  const passOkay = await compare(password, user.password)
 
-  if (!user || !passOkay) {
+  if (!user) {
     return new AppError(
       'USER_AND_PASSWORD_FAIL',
       StatusCodes.BAD_REQUEST,
       true
     )
   }
+  const passOkay = await compare(password, user.password)
+
+  if (!passOkay) {
+    return new AppError(
+      'USER_AND_PASSWORD_FAIL',
+      StatusCodes.BAD_REQUEST,
+      true
+    )
+ }
+
+  console.log(user)
 
   const token = jwt.sign(
     { id: user.id },
@@ -69,9 +80,8 @@ const login = async (data) => {
     { expiresIn: '1d' }
   )
 
-  user.password = undefined
+  user.password = undefined 
   
-  console.log(user)
 
   return { user, token }
 }
