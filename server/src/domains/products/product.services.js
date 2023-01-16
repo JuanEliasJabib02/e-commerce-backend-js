@@ -34,12 +34,12 @@ const createProduct = async (data, imgs) => {
   })
 
 
-  if (imgs.length > 0) {
+  /* if (imgs.length > 0) {
     await imgs.map(async img => {
       const imgUrl = await uploadToCloudinary(img)
       createProductImg(imgUrl, product.id)
     })
-  }
+  } */
 
   return product
 }
