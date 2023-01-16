@@ -14,7 +14,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 })
 
-
 const uploadToCloudinary = async (img) => {
   try {
     const imgPath = img.path
@@ -29,7 +28,7 @@ const uploadToCloudinary = async (img) => {
       folder
     })
       .then(async img => {
-        fs.unlinkSync(imgPath)
+        fs.unlink(imgPath, err => console.log(err))
         console.log("we are here")
         console.log(img.url)
         return img.url
