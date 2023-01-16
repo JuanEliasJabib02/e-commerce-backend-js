@@ -30,6 +30,7 @@ const uploadToCloudinary = async (img) => {
     })
       .then(async img => {
         fs.unlinkSync(imgPath)
+        console.log("we are here")
         console.log(img.url)
         return img.url
       })
