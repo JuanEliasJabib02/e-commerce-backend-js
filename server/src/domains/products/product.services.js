@@ -33,7 +33,7 @@ const createProduct = async (data, imgs) => {
     quantity
   })
 
-  console.log(imgs)
+  
 
 
   if (imgs.length > 0) {
