@@ -72,8 +72,6 @@ const login = async (data) => {
     )
  }
 
-  console.log(user)
-
   const token = jwt.sign(
     { id: user.id },
     process.env.JWT_SIGN,
