@@ -18,10 +18,12 @@ const { AppError } = require('./utils/appError')
 const app = express()
 
 // Api config
+
 app.use(json())
 app.use(cors())
 app.use(helmet())
 app.use(compression())
+
 app.use(express.urlencoded({ extended: false })) // For accept form-data
 
 // Main route

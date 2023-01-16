@@ -8,24 +8,7 @@ const createProduct = async (req, res, next) => {
     /* Validate that if no req.files are so trow error */
     const data = req.body
     const imgs = req.files
-    
-    if (!data) {
-      return new AppError(
-        "Form Data are empty, please fullfil the form",
-        StatusCodes.BAD_REQUEST,
-        true
-      )
-    }
 
-    if (!imgs) {
-          return new AppError(
-      'UPLOAD ARE EMPTYS PLEASE UPLOAD AT LEAST 1 IMAGE OF THE PRODUCT',
-      StatusCodes.BAD_REQUEST,
-      true
-    )
-    }
-
-    console.log(req)
     console.log(`imgs in the controller`, imgs)
 
     const response = await productServices.createProduct(data, imgs)

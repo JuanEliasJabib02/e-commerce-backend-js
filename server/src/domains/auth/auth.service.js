@@ -43,17 +43,12 @@ const signUp = async (data) => {
 const login = async (data) => {
   const { email, password } = data
 
-  console.log(email)
-
   const user = await User.findOne({
     where: {
       email,
       status: 'active'
     }
   })
-
-
-
 
   if (!user) {
     return new AppError(

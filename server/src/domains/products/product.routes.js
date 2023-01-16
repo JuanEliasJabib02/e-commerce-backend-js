@@ -13,12 +13,14 @@ const {
 const { checkToken } = require('../../middlewares/checkToken')
 const { onlyAdmin } = require('../../middlewares/onlyAdmin')
 const { uploadFile, multerErrorHandler } = require('../../utils/uploadFile')
+const { validateProduct } = require('./middleware/product.validator')
 
 const productRouter = express.Router()
 
 productRouter.post('/',
   checkToken,
   onlyAdmin,
+  validateProduct,
   uploadFile.array('productImg', 4),
   multerErrorHandler,
   createProduct
