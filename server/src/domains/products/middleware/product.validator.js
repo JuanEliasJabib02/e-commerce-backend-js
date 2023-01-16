@@ -1,4 +1,6 @@
 const Joi = require("joi")
+const { AppError } = require("../../../utils/appError")
+const { StatusCodes } = require("http-status-codes")
 
 
 const productSchema = Joi.object({
@@ -27,12 +29,11 @@ const productSchema = Joi.object({
 
 const validateProduct = (req, res, next) => {
   const data = req.body
+  
   const { error } = productSchema.validate(data, { abortEarly: false })
-
   if (error) { 
-    return res.json({ error: error.details })
+    res.status(StatusCodes.BAD_REQUEST).json(error)
   }
-
   next()
 }
 
