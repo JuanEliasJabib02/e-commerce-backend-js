@@ -33,12 +33,20 @@ const createProduct = async (data, imgs) => {
     quantity
   })
 
+  console.log(imgs)
+
 
   if (imgs.length > 0) {
-    await imgs.map(async img => {
+    try {
+      await imgs.map(async img => {
       const imgUrl = await uploadToCloudinary(img)
       createProductImg(imgUrl, product.id)
     })
+    } catch (error) {
+      consonple.log(error)
+      console.log("here is the error")
+    }
+
   }
 
   return product

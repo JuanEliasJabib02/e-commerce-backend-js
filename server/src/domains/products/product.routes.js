@@ -12,7 +12,7 @@ const {
 // Middlewares
 const { checkToken } = require('../../middlewares/checkToken')
 const { onlyAdmin } = require('../../middlewares/onlyAdmin')
-const { uploadFile, multerErrorHandler, multerFileTypeErrorHandler } = require('../../utils/uploadFile')
+const { uploadFile, multerErrorHandler } = require('../../utils/uploadFile')
 
 const productRouter = express.Router()
 
