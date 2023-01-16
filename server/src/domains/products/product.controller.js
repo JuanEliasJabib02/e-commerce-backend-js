@@ -8,6 +8,8 @@ const createProduct = async (req, res, next) => {
     const data = req.body
     const imgs = req.files
 
+    console.log(`imgs in the controller`, imgs)
+
     const response = await productServices.createProduct(data, imgs)
 
    	const error = response.stack
