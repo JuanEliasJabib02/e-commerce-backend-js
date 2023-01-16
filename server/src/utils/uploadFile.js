@@ -29,9 +29,16 @@ const multerErrorHandler = (err, req, res, next) => {
 const checkFileType = (req, file, cb) => {
   if (file.mimetype === 'image/png') {
     cb(null, true)
-  } else {
+  }
+  else if (file.mimetype === 'image/jpeg') {
+    cb(null, true)
+  }
+  else if (file.mimetype === 'image/webp') {
+    cb(null, true)
+  }
+  else {
     return cb(new AppError(
-      'ONLY_PNG_ALLOWED',
+      'ONLY_PNG-JPEG-WEBP_ALLOWED',
       StatusCodes.BAD_REQUEST,
       true
     ))
