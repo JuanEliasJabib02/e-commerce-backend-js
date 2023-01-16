@@ -7,6 +7,7 @@ const { productImg } = require('./model/productImg.model')
 const { createProductImg } = require('./middleware/createProductImg')
 
 const createProduct = async (data, imgs) => {
+
   const { name, details, categoryId, price, quantity } = data
 
   const productExist = await Product.findOne({
@@ -32,6 +33,7 @@ const createProduct = async (data, imgs) => {
     quantity
   })
 
+
   if (imgs.length > 0) {
     await imgs.map(async img => {
       const imgUrl = await uploadToCloudinary(img)
@@ -41,6 +43,7 @@ const createProduct = async (data, imgs) => {
 
   return product
 }
+
 
 const getAllProducts = async () => {
   const products = await Product.findAll({

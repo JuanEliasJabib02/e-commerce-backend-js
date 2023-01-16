@@ -32,7 +32,7 @@ const uploadToCloudinary = async (img) => {
       folder
     })
       .then(async img => {
-        const deleteFileFromLocal = fs.unlinkSync(imgPath)
+        fs.unlinkSync(imgPath)
         return img.url
         
         

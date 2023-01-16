@@ -18,7 +18,7 @@ const createProduct = async (req, res, next) => {
 
     res.status(StatusCodes.CREATED).json(response)
 
-    /* cost response =  */
+    
   } catch (error) {
     next(error)
   }
