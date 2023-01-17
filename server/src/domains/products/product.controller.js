@@ -10,7 +10,7 @@ const createProduct = async (req, res, next) => {
     console.log(`Logs`,req)
 
     const data = req.body
-    const imgs = req.files
+    const imgs = req.body.productImg
 
 
     console.log(`imgs in the controller`, imgs)
