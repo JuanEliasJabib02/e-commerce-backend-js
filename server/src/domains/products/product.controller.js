@@ -7,8 +7,13 @@ const createProduct = async (req, res, next) => {
   try {
     /* Validate that if no req.files are so trow error */
 
-    console.log(req)
+    console.log(`Logs`,req)
 
+    const data = req.body
+    const imgs = req.files
+
+
+    console.log(`imgs in the controller`, imgs)
 
     const response = await productServices.createProduct(data, imgs)
 
