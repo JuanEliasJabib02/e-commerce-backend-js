@@ -18,11 +18,11 @@ const { validateProduct } = require('./middleware/product.validator')
 const productRouter = express.Router()
 
 productRouter.post('/',
-  checkToken,
-  onlyAdmin,
+/*   checkToken,
+  onlyAdmin, */
   /* validateProduct, */
-  uploadFile.array('productImg', 4),
-  multerErrorHandler,
+  uploadFile.none(),
+ /*  multerErrorHandler, */
   createProduct
 )
 
