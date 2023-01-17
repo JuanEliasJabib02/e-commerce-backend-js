@@ -43,8 +43,7 @@ const createProduct = async (data, imgs) => {
       createProductImg(imgUrl, product.id)
     })
     } catch (error) {
-      consonple.log(error)
-      console.log("here is the error")
+      console.log(error)
     }
 
   }

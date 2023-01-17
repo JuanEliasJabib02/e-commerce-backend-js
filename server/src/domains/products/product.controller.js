@@ -5,15 +5,11 @@ const { StatusCodes } = require('http-status-codes')
 
 const createProduct = async (req, res, next) => {
   try {
+
     /* Validate that if no req.files are so trow error */
 
-    console.log(`Logs`,req)
-
     const data = req.body
-    const imgs = req.body.productImg
-
-
-    console.log(`imgs in the controller`, imgs)
+    const imgs = req.files
 
     const response = await productServices.createProduct(data, imgs)
 
