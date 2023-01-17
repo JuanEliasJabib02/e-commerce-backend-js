@@ -20,7 +20,7 @@ const productRouter = express.Router()
 productRouter.post('/',
   checkToken,
   onlyAdmin,
-  validateProduct,
+  /* validateProduct, */
   uploadFile.array("productImg",4),
   multerErrorHandler,
   createProduct

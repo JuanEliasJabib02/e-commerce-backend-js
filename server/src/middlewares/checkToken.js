@@ -8,6 +8,9 @@ const { AppError } = require('../utils/appError')
 
 const checkToken = async (req, res, next) => {
   try {
+
+    
+
     if (!req.headers.authorization) {
       return next(new AppError(
         'TOKEN_NOT_VALID',
