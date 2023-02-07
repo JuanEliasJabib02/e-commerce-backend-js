@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary').v2
+const { unlink } = require('node:fs/promises')
 
-const fs = require('fs')
 
 const { AppError } = require('../utils/appError')
 
@@ -16,26 +16,24 @@ cloudinary.config({
 
 const uploadToCloudinary = async (img) => {
   try {
+
     const imgPath = img.path
     const randomNumber = Date.now() - Math.round(Math.random() * 1E9)
     const public_id = `file-${randomNumber}`
     const folder = 'hideshi/images'
-    console.log()
 
-    const imgUrl = await cloudinary.uploader.upload(imgPath, {
+    const { url } = await cloudinary.uploader.upload(imgPath, {
       public_id,
       resource_type: 'image',
       folder
     })
-      .then(async img => {
-        fs.unlink(imgPath, err => console.log(err))
-        console.log("we are here")
-        console.log(img.url)
-        return img.url
-      })
-      .catch(err => { return new AppError(err) })
 
-    return imgUrl
+    await unlink(imgPath)  
+
+    return url
+
+    
+
   } catch (error) {
     return new AppError(error)
   }
