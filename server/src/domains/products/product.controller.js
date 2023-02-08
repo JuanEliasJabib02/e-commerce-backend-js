@@ -4,14 +4,14 @@ const productServices = require('./product.services')
 const { StatusCodes } = require('http-status-codes')
 
 const createProduct = async (req, res, next) => {
+
+
   try {
 
     /* Validate that if no req.files are so trow error */
 
     const data = req.body
-    const imgs = req.files
-
-   
+    const imgs = req.files 
 
     const response = await productServices.createProduct(data, imgs)
 

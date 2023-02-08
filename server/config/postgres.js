@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize')
-const dotenv = require('dotenv')
 
+const dotenv = require('dotenv')
 dotenv.config({ path: './config.env' })
 
 const db = new Sequelize({
