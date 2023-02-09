@@ -8,13 +8,21 @@ const Order = db.define('orders', {
     autoIncrement: true,
     unique: true
   },
+  name: {
+    type: DataTypes.STRING(50),
+    allowNull:null
+  },
+  last_name: {
+    type: DataTypes.STRING(50),
+    allowNull:null
+  },
   email: {
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
   },
-  productsInCart: {
-    type: DataTypes.JSON,
+  cart: {
+    type: DataTypes.ARRAY(DataTypes.JSONB),
     allowNull:false,
   },
   totalPrice: {

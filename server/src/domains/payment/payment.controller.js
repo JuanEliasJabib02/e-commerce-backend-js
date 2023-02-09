@@ -5,12 +5,15 @@ const { AppError } = require("../../utils/appError")
 const paymentServices = require('./payment.services')
 
 const createPayment = async (req,res,next) => {
-º
   try {
 
-    const response = paymentServices.createPayment(req, res, next)
+    const orderData = req.body.orderData
+    const cart = req.body.cart
     
-    res.status(StatusCodes.OK).json(response)
+    
+    const response = paymentServices.createPayment(orderData,cart)
+    
+   /*  res.status(StatusCodes.OK).json(response) */
     
   } catch (error) {
     AppError(error)

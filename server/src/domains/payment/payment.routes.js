@@ -1,5 +1,6 @@
 const express = require("express");
-const { createPayment } = require("./payment.services");
+const { createPayment } = require("./payment.controller");
+
 
 // Controllers
 
