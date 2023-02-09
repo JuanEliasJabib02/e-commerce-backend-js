@@ -11,9 +11,11 @@ const createPayment = async (req,res,next) => {
     const cart = req.body.cart
     
     
-    const response = paymentServices.createPayment(orderData,cart)
+    const response = await paymentServices.createPayment(orderData, cart)
     
-   /*  res.status(StatusCodes.OK).json(response) */
+    console.log(response)
+    
+    res.status(StatusCodes.OK).json(response)
     
   } catch (error) {
     AppError(error)

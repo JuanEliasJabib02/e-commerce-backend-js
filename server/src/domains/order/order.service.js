@@ -3,8 +3,8 @@ const { Order } = require("./order.model")
 
 const createOrder = async (orderData) => {
 
-  
 
+  console.log(orderData)
   console.log("we are here")
 }
 

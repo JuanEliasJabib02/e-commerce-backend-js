@@ -45,6 +45,10 @@ const Order = db.define('orders', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  paymentId:{
+    type: DataTypes.INTEGER,
+    allowNull:false
+  },
   status: {
     type: DataTypes.ENUM([
       "pending",
