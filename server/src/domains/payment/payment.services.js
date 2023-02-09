@@ -3,7 +3,6 @@ const mercadopago = require("mercadopago");
 const dotenv = require('dotenv');
 
 //Middlewares
-const { createOrder } = require("../order/order.service");
 const { AppError } = require("../../utils/appError");
 const { Order } = require("../order/order.model");
 dotenv.config({ path: './config.env' })
@@ -24,6 +23,8 @@ const createPayment = async (orderData, cart) => {
       return item
     })
 
+    const { phone } = orderData;
+
     const preference = {
     binarymode_mode: true, /* Dont access pendings */
     items: productsForMercadoPago,
@@ -31,6 +32,15 @@ const createPayment = async (orderData, cart) => {
       name: orderData.name,
       surname: orderData.surname,
       email: orderData.email,
+      phone: {
+        area_code: orderData.phone, // I put the area code for the moment because when i use the property phone is bugged
+      }
+    },
+    shipments: {
+        receiver_address: {
+          street_name: orderData.address,
+          city_name: orderData.city
+        }
     },
     back_urls: {
       success: "https://hideshi.netlify.app/",
@@ -38,20 +48,14 @@ const createPayment = async (orderData, cart) => {
       pending:""
     },
     auto_return: "approved",
-    notification_url:"https://5564-181-32-131-219.ngrok.io/api/v1/order"
-  }
+    notification_url:"https://728c-181-32-131-219.ngrok.io/api/v1/order"
+    }
     const payment = await mercadopago.preferences.create(preference)
 
-    /* Create the order */
-    const paymentId = payment.body.id
-
-    const order = await createOrder( orderData, paymentId)
-
-  /*   console.log(payment) */
-
+    
     return payment
     
-  } catch (error) {
+} catch (error) {
     new AppError(error)
 
   }

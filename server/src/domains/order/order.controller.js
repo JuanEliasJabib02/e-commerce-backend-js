@@ -6,7 +6,7 @@ const getOrders = async (req,res,next) => {
     
     const response = await orderServices.getOrders()
 
-    res.status(200).json(response)
+    res.status(201).json(response)
 
   } catch (error) {
     console.log(error)
@@ -15,8 +15,25 @@ const getOrders = async (req,res,next) => {
   
 }
 
+const createOrder = async (req, res, next) => {
+  try {
+
+
+    const response = await orderServices.createOrder(req)
+
+
+    console.log("llego la respuesta")
+    res.status(201)
+   
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 module.exports = {
-  getOrders
+  getOrders,
+  createOrder
 }

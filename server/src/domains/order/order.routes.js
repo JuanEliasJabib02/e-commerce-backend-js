@@ -1,12 +1,13 @@
 const express = require("express");
-const { getOrders } = require("./order.controller");
+const { getOrders,createOrder } = require("./order.controller");
 
 
 const orderRouter = express.Router()
 
-orderRouter.post("/", (req, res, next) => {
-  console.log(req.body)
-})
+
+/* This route is recivie a webhook from mercadopago when
+the order is complete */
+orderRouter.post("/", createOrder)
 
 
 /* Only admin */

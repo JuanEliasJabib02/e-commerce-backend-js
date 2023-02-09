@@ -19,7 +19,6 @@ const Order = db.define('orders', {
   email: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true
   },
   cart: {
     type: DataTypes.ARRAY(DataTypes.JSONB),
@@ -28,10 +27,6 @@ const Order = db.define('orders', {
   totalPrice: {
     type: DataTypes.FLOAT,
     allowNull:true,
-  },
-  departament: {
-    type: DataTypes.STRING,
-    allowNull:false
   },
   city: {
     type: DataTypes.STRING,
