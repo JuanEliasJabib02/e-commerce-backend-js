@@ -9,11 +9,11 @@ const Order = db.define('orders', {
     unique: true
   },
   name: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(25),
     allowNull:null
   },
   last_name: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(25),
     allowNull:null
   },
   email: {
@@ -23,11 +23,11 @@ const Order = db.define('orders', {
   },
   cart: {
     type: DataTypes.ARRAY(DataTypes.JSONB),
-    allowNull:false,
+    allowNull:true,
   },
   totalPrice: {
     type: DataTypes.FLOAT,
-    allowNull:false,
+    allowNull:true,
   },
   departament: {
     type: DataTypes.STRING,
@@ -42,11 +42,11 @@ const Order = db.define('orders', {
     allowNull:false
   },
   phone: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(25),
     allowNull: false
   },
   paymentId:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull:false
   },
   status: {

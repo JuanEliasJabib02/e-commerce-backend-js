@@ -9,11 +9,8 @@ const createPayment = async (req,res,next) => {
 
     const orderData = req.body.orderData
     const cart = req.body.cart
-    
-    
+  
     const response = await paymentServices.createPayment(orderData, cart)
-    
-    console.log(response)
     
     res.status(StatusCodes.OK).json(response)
     

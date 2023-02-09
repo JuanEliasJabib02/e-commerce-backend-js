@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 //Middlewares
 const { createOrder } = require("../order/order.service");
 const { AppError } = require("../../utils/appError");
+const { Order } = require("../order/order.model");
 dotenv.config({ path: './config.env' })
 
 mercadopago.configure({access_token:process.env.MERCADOPAGO_ACCCES_TOKEN})
@@ -42,13 +43,11 @@ const createPayment = async (orderData, cart) => {
     const payment = await mercadopago.preferences.create(preference)
 
     /* Create the order */
+    const paymentId = payment.body.id
 
- 
+    const order = await createOrder( orderData, paymentId)
 
-    const order = {
-
-    }
-
+  /*   console.log(payment) */
 
     return payment
     
