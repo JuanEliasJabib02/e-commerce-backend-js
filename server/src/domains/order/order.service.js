@@ -43,6 +43,7 @@ const createOrder = async (data,id) => {
       email: address.zip_code,  
       city: address.city_name,
       address: address.street_name,
+      cart,
       phone: userData.phone.area_code,
       totalPrice: totalPrice,
       paymentId: id,
