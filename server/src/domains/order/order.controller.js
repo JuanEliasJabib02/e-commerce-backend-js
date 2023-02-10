@@ -18,12 +18,12 @@ const getOrders = async (req,res,next) => {
 const createOrder = async (req, res, next) => {
   try {
 
+    const data = req?.body;
+    const id = await data?.data?.id
+    
+    const response = await orderServices.createOrder(data,id)
 
-    const response = await orderServices.createOrder(req)
-
-
-    console.log("llego la respuesta")
-    res.status(201)
+    res.status(201).json(response)
    
     
   } catch (error) {

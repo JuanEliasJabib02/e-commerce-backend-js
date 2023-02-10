@@ -48,7 +48,7 @@ const Order = db.define('orders', {
     type: DataTypes.ENUM([
       "pending",
       "shipped",
-      "completed"
+      "success"
     ]),
     defaultValue: "pending"
   }
