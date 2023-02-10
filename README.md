@@ -1,6 +1,6 @@
 ﻿# Hideshi-Back-end
 
-E-commerce Rest API for a clothes businnes
+E-commerce Rest API for a clothes businnes ( currently in development 90% finish)
 
 ## Included Technologies
 This is a list of the main technologies included in this Starter:
