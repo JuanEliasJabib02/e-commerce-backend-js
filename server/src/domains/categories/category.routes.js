@@ -110,3 +110,26 @@ module.exports = { categoryRouter }
  *                    description: fail
  * 
  */
+
+
+/**
+ * @openapi
+ * /category/{id}:
+ *    delete:
+ *        tags:
+ *            - category
+ *        summary: "delete a category by id"
+ *        description: "this route is for delete a category"
+ *        parameters:
+ *             - in: path
+ *               name: id
+ *               required: true
+ *               schema:
+ *                  type: integer
+ *        responses:
+ *                "204":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ * 
+ */
