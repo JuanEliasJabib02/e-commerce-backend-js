@@ -6,7 +6,6 @@ const createCategory = async (req, res, next) => {
   try {
     const data = req.body
 
-    console.log("here")
 
     const response = await categoryServices.createCategory(data)
 

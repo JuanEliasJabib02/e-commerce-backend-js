@@ -40,3 +40,73 @@ categoryRouter.delete('/:id',
 )
 
 module.exports = { categoryRouter }
+
+
+
+/* DOCUMENTATION */
+
+
+/**
+ * @openapi
+ * /category:
+ *    post:
+ *        tags:
+ *            - category
+ *        summary: "Add a new category"
+ *        description: "This route is for add a new new Category"
+ *        security:
+ *          - JWT: []
+ *        requestBody:
+ *            content:
+ *                application/json:
+ *                    schema:
+ *                        $ref: "#/components/schemas/addCategory"
+ *                    example:
+ *                       name: Shoes
+ *        responses:
+ *                "201":
+ *                    description: category created
+ *                "400":
+ *                    description: category created fail
+ * 
+ */
+
+
+/**
+ * @openapi
+ * /category:
+ *    get:
+ *        tags:
+ *            - category
+ *        summary: "get categories"
+ *        description: "This route is for get all categories"
+ *        responses:
+ *                "200":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ * 
+ */
+
+
+/**
+ * @openapi
+ * /category/{id}:
+ *    get:
+ *        tags:
+ *            - category
+ *        summary: "get category by id"
+ *        description: "this route is for get one category by id"
+ *        parameters:
+ *             - in: path
+ *               name: id
+ *               required: true
+ *               schema:
+ *                  type: integer
+ *        responses:
+ *                "200":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ * 
+ */

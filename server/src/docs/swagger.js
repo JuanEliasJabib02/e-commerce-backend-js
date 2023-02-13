@@ -51,7 +51,15 @@ const swaggerDefinition = {
           }
         }
       },
-      
+      addCategory: {
+        type: 'object',
+        required: ['name'],
+        properties: {
+          name: {
+            type: 'string'
+          },
+        }
+      },  
     }
   }
 }
@@ -60,7 +68,7 @@ const options = {
   swaggerDefinition,
   apis:[
     `${path.join(__dirname, "../domains/auth/auth.routes.js")}`,
-    `${path.join(__dirname, "../domains/categories/categories.routes.js")}`,
+    `${path.join(__dirname, "../domains/categories/category.routes.js")}`,
 ] 
 };
 
