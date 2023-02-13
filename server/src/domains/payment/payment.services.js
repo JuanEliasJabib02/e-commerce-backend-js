@@ -2,9 +2,6 @@
 const mercadopago = require("mercadopago");
 const dotenv = require('dotenv');
 
-//Middlewares
-const { AppError } = require("../../utils/appError");
-const { Order } = require("../order/order.model");
 dotenv.config({ path: './config.env' })
 
 mercadopago.configure({ access_token: process.env.MERCADOPAGO_ACCCES_TOKEN })
@@ -12,6 +9,8 @@ mercadopago.configure({ access_token: process.env.MERCADOPAGO_ACCCES_TOKEN })
 
 const createPayment = async (orderData, cart) => {
   try {
+
+
     const productsForMercadoPago = cart?.map(product => {
       const item = {
         title: product.title,
@@ -49,17 +48,14 @@ const createPayment = async (orderData, cart) => {
       pending:""
     },
     auto_return: "approved",
-    notification_url:"https://c72d-181-32-131-219.ngrok.io/api/v1/order"
+    notification_url:"https://6ab0-181-32-131-219.ngrok.io/api/v1/order"
     }
     const payment = await mercadopago.preferences.create(preference)
-
-    
     return payment
     
 } catch (error) {
-    new AppError(error)
-
-  }
+  next(error)
+}
 
 }
 

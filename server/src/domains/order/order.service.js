@@ -18,11 +18,9 @@ const getOrders = async () => {
 
 }
 
-
-const getOrdersById = async () => {
-
+const getOrdersById = async (id) => {
+  
 }
-
 
 
 /* This order is for update the status of the order when the pay
@@ -36,27 +34,27 @@ const createOrder = async (data,id) => {
     const cart = payment?.body?.additional_info.items
     const address = payment?.body?.additional_info.shipments.receiver_address
     const totalPrice = payment?.body?.transaction_details.total_paid_amount
-
-    const order = await Order.create({
-      name: userData.first_name,
-      last_name: userData.last_name,
-      email: address.zip_code,  
-      city: address.city_name,
-      address: address.street_name,
-      cart,
-      phone: userData.phone.area_code,
-      totalPrice: totalPrice,
-      paymentId: id,
-      status:"success"
-    })
-
-    /* I used the zip code to send the email,after i gonna refact this */
-    console.log(cart)
-
-  return null
-  
+    const status = payment?.body.status
+    if (status === "approved") {
+      const order = await Order.create({
+        name: userData.first_name,
+        last_name: userData.last_name,
+        email: address.zip_code,  
+     /* I used the zip code to send the email,after i gonna refact this */  
+        city: address.city_name,
+        address: address.street_name,
+        cart,
+        phone: userData.phone.area_code,
+        totalPrice: totalPrice,
+        paymentId: id,
+        status:"success"
+      }) 
+      return null
+    } {
+      return null
+    }
   } catch (error) {
-    console.log(error)
+    next(error)
   }
   
 }
