@@ -10,9 +10,9 @@ const compression = require('compression')
 const { Models } = require('./models/index')
 // Utils
 const { globalErrorHandler } = require('./utils/globalErrorHandler')
-const { openApiConfig } = require('./domains/docs/swagger')
 const { StatusCodes } = require('http-status-codes')
 const { AppError } = require('./utils/appError')
+const { openApiConfig } = require('./docs/swagger')
 
 // Init app
 const app = express()
@@ -32,7 +32,10 @@ app.use('/api/v1', router)
 
 // Document api
 
-app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(openApiConfig))
+app.use('/api/v1/doc',
+  swaggerUI.serve,
+  swaggerUI.setup(openApiConfig)
+)
 
 // Error endpoint not found
 app.all('*', (req, res, next) => {

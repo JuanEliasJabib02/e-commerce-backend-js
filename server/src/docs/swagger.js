@@ -10,7 +10,7 @@ const swaggerDefinition = {
   servers: [
     {
       url: 'http://localhost:4000/api/v1',
-      description: 'Dev servers'
+      description: ''
     }
   ],
   components: {
@@ -50,18 +50,19 @@ const swaggerDefinition = {
             type: 'string'
           }
         }
-      }
+      },
+      
     }
   }
 }
 
 const options = {
   swaggerDefinition,
-  apis: [
-		`${path.join(__dirname, '../components/auth/auth.routes.js')}`,
-		`${path.join(__dirname, '../components/categories/categories.routes.js')}`
-  ]
-}
+  apis:[
+    `${path.join(__dirname, "../domains/auth/auth.routes.js")}`,
+    `${path.join(__dirname, "../domains/categories/categories.routes.js")}`,
+] 
+};
 
 const openApiConfig = swaggerJsDoc(options)
 
