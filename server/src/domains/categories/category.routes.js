@@ -133,3 +133,34 @@ module.exports = { categoryRouter }
  *                    description: fail
  * 
  */
+
+/**
+ * @openapi
+ * /category/{id}:
+ *    patch:
+ *        tags:
+ *            - category
+ *        summary: "update the category name"
+ *        description: "this route is update the category name"
+ *        parameters:
+ *             - in: path
+ *               name: id
+ *               required: true
+ *               schema:
+ *                  type: integer
+ *        security:
+ *          - JWT: []
+ *        requestBody:
+ *            content:
+ *                application/json:
+ *                    schema:
+ *                        $ref: "#/components/schemas/addCategory"
+ *                    example:
+ *                       name: Jeans
+ *        responses:
+ *                "204":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ * 
+ */

@@ -43,3 +43,55 @@ productRouter.delete('/:id',
 )
 
 module.exports = { productRouter }
+
+
+
+// Documentation
+
+/**
+ * @openapi
+ * /product:
+ *    get:
+ *        tags:
+ *            - products
+ *        summary: "get products"
+ *        description: "This route is for get all products"
+ *        responses:
+ *                "200":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ * 
+ */
+
+/**
+ * @openapi
+ * /product/{id}:
+ *    get:
+ *        tags:
+ *            - products
+ *        summary: "get product by id"
+ *        description: "this route is for get one product by id"
+ *        parameters:
+ *             - in: path
+ *               name: id
+ *               required: true
+ *               schema:
+ *                  type: integer
+ *        responses:
+ *                "200":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ *                "404":
+ *                    description: product not found
+ * 
+ */
+
+
+
+/**
+ * @openapi
+ * /product/:
+ *  post:
+ */

@@ -59,7 +59,33 @@ const swaggerDefinition = {
             type: 'string'
           },
         }
-      },  
+      }, 
+      addProduct: {
+        /* name, details, categoryId, price, quantity  */
+        type: "object",
+        required: ["name", "details, categoryId, price, quantity","productImg"],
+        properties: {
+          name:{
+            type:"string"
+          },
+          details:{
+            type:"string"
+          },
+          categoryId: {
+            type:"integer"
+          },
+          price: {
+            type:"integer"
+          },
+          quantity: {
+            type:"integer"
+          },
+          productImg: {
+            type: "file",
+            
+          }
+        }
+      }
     }
   }
 }
@@ -69,6 +95,7 @@ const options = {
   apis:[
     `${path.join(__dirname, "../domains/auth/auth.routes.js")}`,
     `${path.join(__dirname, "../domains/categories/category.routes.js")}`,
+    `${path.join(__dirname, "../domains/products/product.routes.js")}`,
 ] 
 };
 
