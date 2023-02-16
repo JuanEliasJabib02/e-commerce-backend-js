@@ -63,7 +63,7 @@ const swaggerDefinition = {
       addProduct: {
         /* name, details, categoryId, price, quantity  */
         type: "object",
-        required: ["name", "details, categoryId, price, quantity","productImg"],
+        required: ["name","details, categoryId, price, quantity","productImg"],
         properties: {
           name:{
             type:"string"

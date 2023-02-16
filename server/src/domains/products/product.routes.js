@@ -89,9 +89,32 @@ module.exports = { productRouter }
  */
 
 
-
 /**
  * @openapi
  * /product/:
- *  post:
+ *    post:
+ *        tags:
+ *            - products
+ *        summary: products
+ *        description: "this route is for add a new product"
+ *        responses:
+ *                "200":
+ *                    description: success
+ *                "400":
+ *                    description: fail
+ *                "404":
+ *                    description: product not found
+ *        security:
+ *          - JWT: []
+ *        requestBody:
+ *            content:
+ *                multipart/form-data:
+ *                    schema:
+ *                        $ref: "#/components/schemas/addProduct"
+ *                    example:
+ *                       name: Jeans
+ * 
  */
+
+
+

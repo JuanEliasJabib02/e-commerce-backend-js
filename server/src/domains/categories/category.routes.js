@@ -162,5 +162,4 @@ module.exports = { categoryRouter }
  *                    description: success
  *                "400":
  *                    description: fail
- * 
  */

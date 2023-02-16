@@ -6,7 +6,7 @@ const { StatusCodes } = require('http-status-codes')
 const { AppError } = require('../../utils/appError')
 
 const signUp = async (data) => {
-  const { firstName, lastName, email, password,role } = data
+  const { firstName, lastName, email, password, role } = data
 
   const userExist = await User.findOne({
     where: {
