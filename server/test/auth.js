@@ -1,6 +1,7 @@
 const request = require("supertest")
-const { app } = require("../../app")
-const { User } = require("../users/user.model")
+const { app } = require("../src/app")
+const { User } = require("../src/domains/users/user.model")
+
 
 const mockDataLoginOk = {
     email:"admin@gmail.com",
@@ -31,7 +32,7 @@ describe("[AUTH] this is the test for /api/v1/auth/", () => {
     const response = await request(app)
       .post("/api/v1/auth/sign-up")
       .send(mockDataRegister)
-      expect(response.statusCode).toEqual(201)
+       expect(response.statusCode).toEqual(201)
   })
   test("This has to return 200", async () => {
       

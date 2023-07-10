@@ -11,7 +11,7 @@ const createPayment = async (orderData, cart) => {
   try {
 
 
-    const productsForMercadoPago = cart?.map(product => {
+    const productsForMercadoPago =  await cart?.map(product => {
       const item = {
         title: product.title,
         description: product.size,
@@ -48,7 +48,7 @@ const createPayment = async (orderData, cart) => {
       pending:""
     },
     auto_return: "approved",
-    notification_url:"https://6ab0-181-32-131-219.ngrok.io/api/v1/order"
+      notification_url: "https://046e-181-32-147-163.ngrok.io/api/v1/order"
     }
     const payment = await mercadopago.preferences.create(preference)
     return payment

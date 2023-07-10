@@ -21,6 +21,7 @@ const db = new Sequelize({
       {
         ssl: {
           require: false,
+                rejectUnauthorized: false // <<<<<<< YOU NEED THIS
         }
       }
       : {}
@@ -35,5 +36,6 @@ const postgresConnect = () => {
     .then(() => console.log('DB SYNCH'))
     .catch(err => console.log(err))
 }
+
 
 module.exports = { postgresConnect, db }

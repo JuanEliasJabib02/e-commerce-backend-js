@@ -49,6 +49,7 @@ const createOrder = async (data,id) => {
         paymentId: id,
         status:"success"
       }) 
+      console.log("pago")
       return null
     } {
       return null

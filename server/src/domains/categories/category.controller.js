@@ -5,8 +5,6 @@ const categoryServices = require('./category.service')
 const createCategory = async (req, res, next) => {
   try {
     const data = req.body
-
-
     const response = await categoryServices.createCategory(data)
 
    	const error = response.stack

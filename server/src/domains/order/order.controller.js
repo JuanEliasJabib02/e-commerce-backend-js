@@ -23,8 +23,8 @@ const getOrders = async (req,res,next) => {
 const createOrder = async (req, res, next) => {
   try {
 
-    const data = req?.body;
-    const id = await data?.data?.id
+    const data = req.body;
+    const id = await data.data.id
     
     const response = await orderServices.createOrder(data, id)
     
